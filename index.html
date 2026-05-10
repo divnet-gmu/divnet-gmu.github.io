@@ -12,18 +12,16 @@
     :root {
       color-scheme: light;
       --bg: #f6f3ea;
-      --paper: rgba(255, 255, 255, 0.82);
-      --paper-strong: #ffffff;
+      --paper: rgba(255, 255, 255, 0.88);
       --ink: #18212b;
       --muted: #53606d;
       --line: rgba(24, 33, 43, 0.12);
       --accent: #0f5c78;
       --accent-soft: #dceff7;
       --accent-deep: #123e52;
-      --warm: #c76a2b;
-      --shadow: 0 24px 60px rgba(25, 37, 48, 0.08);
-      --radius: 24px;
-      --content-width: 1160px;
+      --shadow: 0 18px 42px rgba(25, 37, 48, 0.06);
+      --radius: 22px;
+      --content-width: 960px;
     }
 
     * {
@@ -39,11 +37,11 @@
       min-height: 100vh;
       color: var(--ink);
       font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      line-height: 1.6;
+      line-height: 1.65;
       background:
-        radial-gradient(circle at top left, rgba(207, 226, 218, 0.75), transparent 34%),
-        radial-gradient(circle at top right, rgba(223, 237, 246, 0.82), transparent 28%),
-        linear-gradient(180deg, #f7f4ec 0%, #f5f2e8 48%, #eef2ef 100%);
+        radial-gradient(circle at top left, rgba(207, 226, 218, 0.72), transparent 34%),
+        radial-gradient(circle at top right, rgba(223, 237, 246, 0.76), transparent 28%),
+        linear-gradient(180deg, #f7f4ec 0%, #f5f2e8 50%, #eef2ef 100%);
     }
 
     body::before {
@@ -55,7 +53,7 @@
         linear-gradient(rgba(24, 33, 43, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(24, 33, 43, 0.03) 1px, transparent 1px);
       background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 85%);
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.24), transparent 85%);
     }
 
     a {
@@ -63,32 +61,37 @@
     }
 
     .page {
-      width: min(calc(100% - 40px), var(--content-width));
-      margin: 0 auto;
-      padding: 24px 0 56px;
       position: relative;
       z-index: 1;
+      width: min(calc(100% - 40px), var(--content-width));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar,
+    .main-body,
+    .citation {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
     }
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
       padding: 14px 18px;
-      margin-bottom: 28px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.56);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 10px 28px rgba(20, 33, 45, 0.05);
-      animation: rise 0.7s ease-out both;
+      margin-bottom: 8px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -99,15 +102,14 @@
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background:
-        linear-gradient(145deg, rgba(15, 92, 120, 0.14), rgba(199, 106, 43, 0.16)),
-        #fff;
       border: 1px solid rgba(15, 92, 120, 0.14);
+      background: linear-gradient(145deg, rgba(15, 92, 120, 0.14), rgba(255, 255, 255, 0.95));
       display: grid;
       place-items: center;
       color: var(--accent-deep);
       font-weight: 800;
       font-size: 1rem;
+      flex: 0 0 auto;
     }
 
     .nav {
@@ -122,38 +124,18 @@
       text-decoration: none;
     }
 
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 52px;
-      border-radius: 34px;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 251, 253, 0.78)),
-        var(--paper);
-      border: 1px solid rgba(24, 33, 43, 0.08);
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.95fr);
-      gap: 40px;
-      align-items: center;
-      animation: rise 0.8s ease-out both;
+    .main-body,
+    .citation {
+      padding: 30px 32px;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      top: -180px;
-      right: -120px;
-      background: radial-gradient(circle, rgba(15, 92, 120, 0.16), transparent 70%);
+    .main-body {
+      margin-bottom: 8px;
     }
 
-    .eyebrow,
-    .section-label {
+    .eyebrow {
       display: inline-block;
-      padding: 7px 12px;
+      padding: 6px 12px;
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent-deep);
@@ -164,8 +146,7 @@
     }
 
     h1,
-    h2,
-    h3 {
+    h2 {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
       font-weight: 700;
@@ -173,331 +154,124 @@
     }
 
     h1 {
-      margin-top: 18px;
-      font-size: clamp(3rem, 5vw, 4.8rem);
-      line-height: 0.95;
+      margin-top: 16px;
+      font-size: clamp(2.55rem, 4.6vw, 4rem);
+      line-height: 1.04;
     }
 
-    .subtitle {
-      max-width: 58ch;
-      margin: 18px 0 22px;
-      font-size: 1.08rem;
+    h2 {
+      font-size: 1.55rem;
+      margin-bottom: 10px;
+    }
+
+    p,
+    li {
       color: var(--muted);
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .meta span {
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(24, 33, 43, 0.08);
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .authors {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 24px;
-      color: var(--muted);
-    }
-
-    .authors strong {
-      display: block;
-      color: var(--ink);
       font-size: 1rem;
+    }
+
+    .hero-text {
+      margin: 16px 0 0;
+      font-size: 1.06rem;
+      max-width: 62ch;
+    }
+
+    .project-meta {
+      margin-top: 20px;
+      color: var(--muted);
+    }
+
+    .project-meta strong {
+      color: var(--ink);
     }
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+      margin-top: 22px;
     }
 
     .button {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
+      justify-content: center;
+      padding: 11px 18px;
       border-radius: 999px;
+      border: 1px solid rgba(24, 33, 43, 0.1);
+      background: rgba(255, 255, 255, 0.86);
       text-decoration: none;
-      border: 1px solid transparent;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .button:hover,
     .button:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(18, 62, 82, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(18, 62, 82, 0.09);
     }
 
     .button.primary {
       background: var(--accent);
+      border-color: var(--accent);
       color: #fff;
     }
 
-    .button.secondary {
-      background: rgba(255, 255, 255, 0.82);
-      border-color: rgba(24, 33, 43, 0.08);
+    .section {
+      margin-top: 30px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(24, 33, 43, 0.08);
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .callout {
+      margin: 14px 0 0;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      background: rgba(15, 92, 120, 0.06);
       color: var(--ink);
     }
 
-    .hero-visual {
-      position: relative;
-      padding: 28px;
-      border-radius: 28px;
-      background:
-        linear-gradient(160deg, rgba(14, 43, 58, 0.98), rgba(18, 62, 82, 0.92)),
-        #14384a;
-      color: #f4f8fa;
-      overflow: hidden;
+    .bullet-list {
+      margin: 14px 0 0;
+      padding-left: 22px;
     }
 
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 75% 22%, rgba(255, 255, 255, 0.16), transparent 28%);
-      pointer-events: none;
+    .bullet-list li + li {
+      margin-top: 10px;
     }
 
-    .diagram-title {
-      font-size: 0.86rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(244, 248, 250, 0.76);
-    }
-
-    .diagram {
-      margin-top: 22px;
+    .result-grid {
       display: grid;
-      gap: 14px;
-    }
-
-    .diagram-row {
-      display: grid;
-      grid-template-columns: 96px 1fr;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .diagram-label {
-      font-size: 0.86rem;
-      color: rgba(244, 248, 250, 0.82);
-    }
-
-    .diagram-track {
-      position: relative;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      min-height: 58px;
-    }
-
-    .node {
-      flex: 1;
-      min-height: 58px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.08);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 10px;
-      font-size: 0.92rem;
-    }
-
-    .node strong {
-      display: block;
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.64);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .node.attack {
-      background: rgba(199, 106, 43, 0.16);
-      border-color: rgba(199, 106, 43, 0.28);
-    }
-
-    .node.variant {
-      background: rgba(91, 170, 140, 0.14);
-      border-color: rgba(91, 170, 140, 0.24);
-    }
-
-    .hero-note {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 22px;
       margin-top: 18px;
-      font-size: 0.95rem;
-      color: rgba(244, 248, 250, 0.78);
     }
 
-    section {
-      margin-top: 26px;
-      animation: rise 0.9s ease-out both;
+    .result-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(24, 33, 43, 0.08);
     }
 
-    .grid-two {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
-      gap: 26px;
-    }
-
-    .card,
-    .stat,
-    .quote,
-    .citation {
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: var(--paper);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 12px 30px rgba(25, 37, 48, 0.05);
-    }
-
-    .card {
-      padding: 28px;
-    }
-
-    .card h2,
-    .card h3 {
-      margin-top: 14px;
-      font-size: clamp(1.6rem, 2vw, 2.2rem);
-    }
-
-    .card h3 {
-      font-size: 1.35rem;
-    }
-
-    .card p,
-    .card li,
-    .citation p {
-      color: var(--muted);
+    .result-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
       font-size: 1rem;
     }
 
-    .key-points,
-    .steps,
-    .results-list {
-      padding: 0;
-      margin: 22px 0 0;
-      list-style: none;
-      display: grid;
-      gap: 14px;
-    }
-
-    .key-points li,
-    .steps li,
-    .results-list li {
-      position: relative;
-      padding-left: 18px;
-    }
-
-    .key-points li::before,
-    .steps li::before,
-    .results-list li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.72em;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--warm);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .stat {
-      padding: 24px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 2rem;
-      line-height: 1;
-      color: var(--accent-deep);
-      margin-bottom: 10px;
-      font-family: Georgia, "Times New Roman", serif;
-    }
-
-    .stat span {
-      display: block;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .steps {
-      counter-reset: divnet-steps;
-      gap: 18px;
-    }
-
-    .steps li {
-      padding: 20px 20px 20px 64px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.68);
-      border: 1px solid rgba(24, 33, 43, 0.08);
-    }
-
-    .steps li::before {
-      counter-increment: divnet-steps;
-      content: counter(divnet-steps);
-      width: 34px;
-      height: 34px;
-      top: 20px;
-      left: 18px;
-      background: var(--accent);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .mini-card {
-      padding: 20px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.64);
-      border: 1px solid rgba(24, 33, 43, 0.08);
-    }
-
-    .mini-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .quote {
-      padding: 28px;
-      background:
-        linear-gradient(150deg, rgba(220, 239, 247, 0.92), rgba(255, 255, 255, 0.9));
-    }
-
-    .quote p {
-      margin: 0;
-      color: var(--accent-deep);
-      font-size: 1.1rem;
-      line-height: 1.7;
-    }
-
     .citation {
-      margin-top: 26px;
-      padding: 26px 28px;
+      margin-top: 0;
+    }
+
+    .citation p {
+      color: var(--muted);
     }
 
     .citation code {
@@ -514,80 +288,28 @@
       white-space: pre-wrap;
     }
 
-    footer {
-      margin: 36px 0 8px;
-      padding: 0 6px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .grid-two,
-      .mini-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 34px 26px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     @media (max-width: 720px) {
       .page {
         width: min(calc(100% - 24px), var(--content-width));
         padding-top: 14px;
       }
 
-      .topbar,
-      footer {
+      .topbar {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .hero {
-        border-radius: 28px;
+      .main-body,
+      .citation {
+        padding: 24px 22px;
       }
 
-      .card,
-      .quote,
-      .citation,
-      .stat {
-        padding: 22px;
-      }
-
-      .stats {
+      .result-grid {
         grid-template-columns: 1fr;
-      }
-
-      .diagram-row {
-        grid-template-columns: 1fr;
-      }
-
-      .diagram-label {
-        margin-bottom: -4px;
       }
 
       h1 {
-        font-size: 2.7rem;
+        font-size: 2.35rem;
       }
     }
   </style>
@@ -603,210 +325,118 @@
         <a href="#overview">Overview</a>
         <a href="#approach">Approach</a>
         <a href="#results">Results</a>
-        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero" id="overview">
-        <div>
-          <span class="eyebrow">ACM MobiSys 2026</span>
-          <h1>DivNet</h1>
-          <p class="subtitle">
-            Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants
-          </p>
+    <main class="main-body">
+      <section class="section" id="overview">
+        <span class="eyebrow">ACM MobiSys 2026</span>
+        <h1>Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants</h1>
+        <p class="hero-text">
+          DivNet brings the classic security principle of software diversification to deep neural
+          networks. Instead of deploying one identical model everywhere, it enables many distinct
+          variants so that an adversarial example that succeeds on one instance is unlikely to
+          succeed on another.
+        </p>
+        <div class="project-meta">
+          <p><strong>Ying Meng</strong> and <strong>Qiang Zeng</strong></p>
+          <p>George Mason University, Fairfax, VA, USA</p>
+          <p>The 24th Annual International Conference on Mobile Systems, Applications and Services (MobiSys ’26), June 21–25, 2026, Cambridge, United Kingdom</p>
+        </div>
+        <div class="cta-row">
+          <a class="button primary" href="notes/245-meng.pdf">Paper</a>
+          <a class="button" href="https://divnet-gmu.github.io/">Code</a>
+          <a class="button" href="notes/245_DivNet.pptx">Slides</a>
+        </div>
+      </section>
 
-          <!-- <div class="meta" aria-label="Project metadata"> -->
-            <!-- <span>Project: Diversified Neural Networks</span> -->
-            <!-- <span>Keywords: Automatic Speech Recognition (ASR)</span> -->
-            <!-- <span>Accepted at MobiSys ’26</span> -->
-          <!-- </div> -->
+      <section class="section">
+        <h2>The Problem</h2>
+        <p>
+          DivNet starts from a practical deployment issue that is easy to miss in standard defense
+          evaluations. In many real systems, the same neural network is deployed identically across
+          devices or services. Under this uniform deployment model, one successful adversarial
+          example can often be reused to compromise every instance that shares the same defense.
+        </p>
+        <div class="callout">
+          Existing defenses often focus on <strong>craft-time AE success</strong>: how hard it is for an
+          attacker to generate a successful adversarial example. DivNet emphasizes
+          <strong>attack-time AE success</strong>: whether that crafted example actually succeeds against the
+          victim system during deployment.
+        </div>
+        <ul class="bullet-list">
+          <li>A low craft-time success rate only means the attacker may need more attempts to find an adversarial example.</li>
+          <li>A low attack-time success rate means the crafted example does not reliably transfer to deployed victims, which is the more practical security goal.</li>
+          <li>This distinction is central to DivNet: the system is designed to break attack reuse across identical deployments.</li>
+        </ul>
+      </section>
 
-          <div class="authors">
-            <div>
-              <strong>Ying Meng</strong>
-              <span>George Mason University</span>
-            </div>
-            <div>
-              <strong>Qiang Zeng</strong>
-              <span>George Mason University</span>
-            </div>
+      <section class="section" id="approach">
+        <h2>Method Overview</h2>
+        <p>
+          The key insight in the paper is that, in a large neural network, some weights are
+          comparatively unimportant for benign inputs but critical for adversarial examples. DivNet
+          performs a one-time offline analysis to find those weights, ranks them by asymmetric
+          significance, and identifies safe modification ranges that preserve benign recognition
+          quality while changing adversarial behavior.
+        </p>
+        <ul class="bullet-list">
+          <li><strong>Weight ranking:</strong> DivNet analyzes which weights matter differently to benign inputs and adversarial examples.</li>
+          <li><strong>Selective modification:</strong> It modifies top-ranked weights within validated ranges instead of pruning blindly or changing weights at random.</li>
+          <li><strong>Variant generation:</strong> Different subsets of modified weights produce many model variants that behave similarly on benign inputs but diverge on adversarial inputs.</li>
+          <li><strong>Deployment model:</strong> Because variants are generated offline and then deployed as ordinary ASR models, the defense adds zero runtime overhead.</li>
+        </ul>
+        <p>
+          In short, DivNet does not rely on runtime filtering, ensembles that must execute in
+          parallel, or generic randomness. It changes the deployment assumption itself: instead of a
+          single homogeneous model population, it creates a large family of orthogonal variants.
+        </p>
+      </section>
+
+      <section class="section" id="results">
+        <h2>Key Results</h2>
+        <p>
+          Across the paper and the 20-second pitch slides, DivNet is positioned as a practical
+          defense with strong deployment-time benefits. The reported results show that it can
+          generate an enormous number of distinct variants while preserving utility and resisting a
+          broad range of attacks, including adaptive ones.
+        </p>
+        <div class="result-grid">
+          <div class="result-item">
+            <strong>Astronomically many orthogonal variants</strong>
+            <span>Independent generation produces naturally distinct model instances rather than a small fixed set of alternatives.</span>
           </div>
-
-          <div class="cta-row">
-            <a class="button primary" href="https://divnet-gmu.github.io/">Paper</a>
-            <a class="button secondary" href="https://divnet-gmu.github.io/">Code</a>
+          <div class="result-item">
+            <strong>Preserved benign accuracy</strong>
+            <span>The paper reports minimal degradation on benign inputs, which is necessary for practical deployment.</span>
+          </div>
+          <div class="result-item">
+            <strong>Defeated adversarial inputs</strong>
+            <span>Attack transfer drops because success on one variant no longer implies success on another.</span>
+          </div>
+          <div class="result-item">
+            <strong>Withstood adaptive attacks</strong>
+            <span>Evaluation covers unseen attacks and adaptive strategies rather than only the attacks used during offline diversification.</span>
+          </div>
+          <div class="result-item">
+            <strong>Zero runtime overhead</strong>
+            <span>The defense cost is paid offline during analysis and variant generation, not during inference.</span>
+          </div>
+          <div class="result-item">
+            <strong>Deployment-oriented security</strong>
+            <span>Its main contribution is reducing attack-time AE success in realistic deployments, not merely increasing attacker effort at craft time.</span>
           </div>
         </div>
-
-        <!-- <aside class="hero-visual" aria-label="Conceptual illustration">
-          <div class="diagram-title">Why diversification matters</div>
-          <div class="diagram">
-            <div class="diagram-row">
-              <div class="diagram-label">Uniform deployment</div>
-              <div class="diagram-track">
-                <div class="node attack">
-                  <div><strong>One AE</strong>open the door</div>
-                </div>
-                <div class="node">
-                  <div><strong>Model A</strong>compromised</div>
-                </div>
-                <div class="node">
-                  <div><strong>Model B</strong>compromised</div>
-                </div>
-                <div class="node">
-                  <div><strong>Model C</strong>compromised</div>
-                </div>
-              </div>
-            </div>
-            <div class="diagram-row">
-              <div class="diagram-label">DivNet deployment</div>
-              <div class="diagram-track">
-                <div class="node attack">
-                  <div><strong>Same AE</strong>reused input</div>
-                </div>
-                <div class="node variant">
-                  <div><strong>Variant 1</strong>blocked</div>
-                </div>
-                <div class="node variant">
-                  <div><strong>Variant 2</strong>diverges</div>
-                </div>
-                <div class="node variant">
-                  <div><strong>Variant 3</strong>fails transfer</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="hero-note">
-            DivNet turns a single fragile deployment into a family of security-enhanced,
-            independently generated variants.
-          </p>
-        </aside> -->
       </section>
+    </main>
 
-      <section class="grid-two">
-        <article class="card">
-          <span class="section-label">Core Message</span>
-          <h2>Adversarial attacks scale because deployed models are usually identical.</h2>
-          <p>
-            Conventional defenses often focus on making attacks harder to craft, but that
-            is only part of the story. In practice, the more consequential problem is reuse:
-            once an attacker finds one input that works against a uniform deployment, that
-            input can often be replayed against many victims.
-          </p>
-          <ul class="key-points">
-            <li>DivNet reframes the problem from “can an attack be crafted?” to “can it be reused at scale?”</li>
-            <li>It adapts the classic security principle of software diversification to deep neural networks.</li>
-            <li>Instead of a single hardened model, each deployment can run its own robust variant.</li>
-          </ul>
-        </article>
-
-        <aside class="stats" aria-label="Project highlights">
-          <div class="stat">
-            <strong>0</strong>
-            <span>runtime overhead after deployment</span>
-          </div>
-          <div class="stat">
-            <strong>Low</strong>
-            <span>benign accuracy impact according to the paper’s evaluation</span>
-          </div>
-          <div class="stat">
-            <strong>Many</strong>
-            <span>orthogonal variants generated from one model family</span>
-          </div>
-          <div class="stat">
-            <strong>Broad</strong>
-            <span>coverage against diverse and adaptive audio attacks</span>
-          </div>
-        </aside>
-      </section>
-
-      <section class="grid-two" id="approach">
-        <article class="card">
-          <span class="section-label">Approach</span>
-          <h2>Modify the weights that matter to attacks, not the ones that matter to benign inputs.</h2>
-          <p>
-            DivNet starts from a simple but powerful observation: in a large neural network,
-            some weights are critical for adversarial examples yet comparatively unimportant
-            for benign behavior. By locating and carefully perturbing those weights, DivNet
-            produces variants that preserve normal performance while disrupting attack transfer.
-          </p>
-          <ol class="steps">
-            <li>Analyze the base ASR model offline to rank weights by their importance to benign and adversarial inputs.</li>
-            <li>Identify safe modification ranges that maintain benign transcription quality while changing attack behavior.</li>
-            <li>Generate many variants by modifying different subsets of those weights, yielding naturally orthogonal deployments.</li>
-          </ol>
-        </article>
-
-        <aside class="card">
-          <span class="section-label">Why It Matters</span>
-          <h2>Security benefits without operational drag.</h2>
-          <div class="mini-grid">
-            <div class="mini-card">
-              <h3>Practical</h3>
-              <p>Variant generation is an offline process, so deployed systems avoid extra runtime cost.</p>
-            </div>
-            <div class="mini-card">
-              <h3>Scalable</h3>
-              <p>The variant space is large enough to support numerous distinct model instances.</p>
-            </div>
-            <div class="mini-card">
-              <h3>Defensible</h3>
-              <p>Attack reuse becomes harder because success on one model does not imply success on another.</p>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section id="results">
-        <article class="card">
-          <span class="section-label">Evaluation</span>
-          <h2>DivNet is designed for deployment-time resilience, not only attacker-side friction.</h2>
-          <p>
-            The paper evaluates DivNet on widely used ASR models and against a broad spectrum
-            of attacks, including adaptive settings. The reported outcome is consistent across
-            the project narrative: diversification reduces attack transfer in practice while
-            preserving the usability expected from a deployable defense.
-          </p>
-          <ul class="results-list">
-            <li>It targets deployment-time attack success, the metric that best captures real-world harm.</li>
-            <li>It remains effective against attacks that were not seen during the diversification process.</li>
-            <li>It withstands adaptive attacks while avoiding the heavy runtime cost common in prior audio defenses.</li>
-            <li>It keeps benign performance degradation minimal, preserving utility for normal users.</li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="grid-two">
-        <aside class="quote">
-          <p>
-            “An adversarial example that succeeds on one instance should not become a
-            universal key for every other instance.”
-          </p>
-        </aside>
-
-        <article class="card" id="resources">
-          <span class="section-label">Resources</span>
-          <h2>Project materials</h2>
-          <p>
-            This page accompanies the MobiSys 2026 paper and its short-pitch presentation.
-            Code and additional artifacts can be attached here when public release is ready.
-          </p>
-          <ul class="key-points">
-            <li><a href="notes/245-meng.pdf">Paper PDF</a></li>
-            <li><a href="notes/245_DivNet.pptx">20-second pitch slides</a></li>
-            <li><a href="https://divnet-gmu.github.io/">Code placeholder link</a></li>
-            <li><a href="mailto:ymeng2@gmu.edu">Contact: ymeng2@gmu.edu</a></li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="citation">
-        <span class="section-label">Citation</span>
-        <p>
-          If you reference DivNet, cite the MobiSys 2026 paper below.
-        </p>
-        <code>@inproceedings{meng2026divnet,
+    <section class="citation" id="citation">
+      <span class="eyebrow">Citation</span>
+      <p>
+        If you reference DivNet, cite the MobiSys 2026 paper below.
+      </p>
+      <code>@inproceedings{meng2026divnet,
   author = {Meng, Ying and Zeng, Qiang},
   title = {Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants},
   booktitle = {Proceedings of the 24th Annual International Conference on Mobile Systems, Applications and Services},
@@ -815,13 +445,7 @@
   address = {Cambridge, United Kingdom},
   doi = {10.1145/3745756.3809215}
 }</code>
-      </section>
-    </main>
-
-    <footer>
-      <span>DivNet Project Page</span>
-      <span>George Mason University • ACM MobiSys 2026</span>
-    </footer>
+    </section>
   </div>
 </body>
 </html>
