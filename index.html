@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DivNet | Diversified Neural Networks</title>
+  <title>DivNet</title>
   <meta
     name="description"
     content="DivNet is a neural network diversification approach that defeats adversarial attacks by generating numerous orthogonal model variants with zero runtime overhead."
@@ -94,20 +94,20 @@
       min-width: 0;
       font-size: 0.95rem;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
+      /* text-transform: uppercase; */
       color: var(--muted);
     }
 
     .brand-mark {
-      width: 38px;
+      width: 76px;
       height: 38px;
-      border-radius: 12px;
+      border-radius: 4px;
       border: 1px solid rgba(15, 92, 120, 0.14);
       background: linear-gradient(145deg, rgba(15, 92, 120, 0.14), rgba(255, 255, 255, 0.95));
       display: grid;
       place-items: center;
       color: var(--accent-deep);
-      font-weight: 800;
+      font-weight: 600;
       font-size: 1rem;
       flex: 0 0 auto;
     }
@@ -136,7 +136,7 @@
     .eyebrow {
       display: inline-block;
       padding: 6px 12px;
-      border-radius: 999px;
+      border-radius: 4px;
       background: var(--accent-soft);
       color: var(--accent-deep);
       font-size: 0.78rem;
@@ -318,8 +318,8 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">DN</div>
-        <span>DivNet Project Page</span>
+        <div class="brand-mark">DivNet</div>
+        <span>Diversified Neural Networks</span>
       </div>
       <nav class="nav" aria-label="Section navigation">
         <a href="#overview">Overview</a>
@@ -332,27 +332,28 @@
     <main class="main-body">
       <section class="section" id="overview">
         <span class="eyebrow">ACM MobiSys 2026</span>
-        <h1>DivNet</h1>
-        <h4>Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants</h4>
-        <p class="hero-text">
-          DivNet brings the classic security principle of software diversification to deep neural
-          networks. Instead of deploying one identical model everywhere, it enables many distinct
-          variants so that an adversarial example that succeeds on one instance is unlikely to
-          succeed on another.
-        </p>
+        <!-- <h3>DivNet</h3> -->
+        <h2>Diversified Neural Networks:</h2>
+        <h2>Defeating Adversarial Attacks via Numerous Orthogonal Variants</h2>
         <div class="project-meta">
-          <p>Ying Meng and Qiang Zeng</p>
-          <p>George Mason University, Fairfax, VA, USA</p>
-          <p>The 24th Annual International Conference on Mobile Systems, Applications and Services (MobiSys ’26), June 21–25, 2026, Cambridge, United Kingdom</p>
+          <p>Ying Meng and <a href="https://cs.gmu.edu/~zeng">Qiang Zeng</a></p>
+          <p>George Mason University</p>
+          <!-- <p>ACM MobiSys 2026</p> -->
         </div>
         <div class="cta-row">
-          <a class="button primary" href="https://divnet-gmu.github.io/">Paper</a>
+          <a class="button" href="https://divnet-gmu.github.io/">Paper</a>
           <a class="button" href="https://divnet-gmu.github.io/">Code</a>
           <a class="button" href="#citation">Citation</a>
         </div>
       </section>
 
       <section class="section">
+        <!-- <p class="hero-text"> -->
+        <p>
+          DivNet brings the classic security principle of software diversification to deep neural networks. Instead of deploying
+          one identical model everywhere, it enables many distinct variants so that an adversarial example that succeeds on one
+          instance is unlikely to succeed on another.
+        </p>
         <h2>The Problem</h2>
         <p>
           DivNet starts from a practical deployment issue that is easy to miss in standard defense
