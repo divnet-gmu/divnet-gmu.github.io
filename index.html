@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DivNet</title>
-  <meta
-    name="description"
-    content="DivNet is a neural network diversification approach that defeats adversarial attacks by generating numerous orthogonal model variants with zero runtime overhead."
-  />
+  <title>Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants</title>
   <style>
     :root {
       color-scheme: light;
@@ -168,6 +165,11 @@
     li {
       color: var(--muted);
       font-size: 1rem;
+      text-align: justify;
+    }
+
+    p {
+      text-align: justify;
     }
 
     .hero-text {
@@ -197,12 +199,12 @@
       align-items: center;
       justify-content: center;
       padding: 11px 18px;
-      border-radius: 999px;
+      border-radius: 8px;
       border: 1px solid rgba(24, 33, 43, 0.1);
       background: rgba(255, 255, 255, 0.86);
       text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-weight: 500;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
 
     .button:hover,
@@ -323,6 +325,7 @@
       </div>
       <nav class="nav" aria-label="Section navigation">
         <a href="#overview">Overview</a>
+        <a href="#threats">Threats</a>
         <a href="#approach">Approach</a>
         <a href="#results">Results</a>
         <a href="#citation">Citation</a>
@@ -330,116 +333,94 @@
     </header>
 
     <main class="main-body">
-      <section class="section" id="overview">
+      <section class="section">
         <span class="eyebrow">ACM MobiSys 2026</span>
         <!-- <h3>DivNet</h3> -->
         <h2>Diversified Neural Networks:</h2>
         <h2>Defeating Adversarial Attacks via Numerous Orthogonal Variants</h2>
         <div class="project-meta">
-          <p>Ying Meng and <a href="https://cs.gmu.edu/~zeng">Qiang Zeng</a></p>
+          <p><a href="https://divnet-gmu.github.io/">Ying Meng</a> and <a href="https://cs.gmu.edu/~zeng">Qiang Zeng</a></p>
           <p>George Mason University</p>
           <!-- <p>ACM MobiSys 2026</p> -->
         </div>
         <div class="cta-row">
-          <a class="button" href="https://divnet-gmu.github.io/">Paper</a>
-          <a class="button" href="https://divnet-gmu.github.io/">Code</a>
-          <a class="button" href="#citation">Citation</a>
+          <a class="button" href="https://divnet-gmu.github.io/"><i class="fa-regular fa-file-pdf"></i>&nbsp; Paper</a>
+          <a class="button" href="https://divnet-gmu.github.io/"><i class="fa-brands fa-github"></i>&nbsp; Code</a>
+          <a class="button" href="#citation"><i class="fa-solid fa-quote-left"></i>&nbsp; Citation</a>
         </div>
       </section>
 
-      <section class="section">
-        <!-- <p class="hero-text"> -->
+      <section class="section" id="overview">
+        <h2>What is this all about?</h2>
         <p>
-          DivNet brings the classic security principle of software diversification to deep neural networks. Instead of deploying
-          one identical model everywhere, it enables many distinct variants so that an adversarial example that succeeds on one
-          instance is unlikely to succeed on another.
+          Modern automatic speech recognition (ASR) systems are typically deployed uniformly across devices and services. 
+          Once an attacker crafts a successful adversarial example against one instance, the same input can be reused to attack all others. 
+          Existing defenses largely overlook this threat, and once bypassed, offer no protection against attack reuse. 
+          Software diversification is a well-established principle in computer security: rather than deploying identical systems,
+          introducing diversity across instances forces attackers to tailor exploits to each individual target, preventing a
+          single attack from compromising everyone. 
+          DivNet brings this principle to neural networks. 
+          The key insight behind DivNet is that, in a large neural network, some weights matter little for normal speech yet play
+          a critical role in adversarial attacks.
+          By selectively modifying such weights, DivNet generates a large number of model
+          variants that behave consistently on normal inputs while responding differently to adversarial ones, so an attack that
+          succeeds on one instance is unlikely to succeed on another. 
+          DivNet achieves this with zero runtime overhead and minimal impact on recognition accuracy, and remains robust against adaptive attacks. 
         </p>
-        <h2>The Problem</h2>
+      </section>
+      <section class="section" id="threats">
+        <h2>What are the threats?</h2>
         <p>
-          DivNet starts from a practical deployment issue that is easy to miss in standard defense
-          evaluations. In many real systems, the same neural network is deployed identically across
-          devices or services. Under this uniform deployment model, one successful adversarial
-          example can often be reused to compromise every instance that shares the same defense.
+          Audio adversarial examples are maliciously crafted audio clips that sound normal to human listeners yet
+          cause automatic speech recognition (ASR) systems to produce attacker-intended outputs. Such attacks pose serious real-world threats, including hijacking smart home devices, triggering unauthorized transactions, falsifying meeting transcripts, and manipulating voice-controlled vehicles. 
         </p>
-        <div class="callout">
-          Existing defenses often focus on <strong>craft-time AE success</strong>: how hard it is for an
-          attacker to generate a successful adversarial example. DivNet emphasizes
-          <strong>attack-time AE success</strong>: whether that crafted example actually succeeds against the
-          victim system during deployment.
-        </div>
-        <ul class="bullet-list">
-          <li>A low craft-time success rate only means the attacker may need more attempts to find an adversarial example.</li>
-          <li>A low attack-time success rate means the crafted example does not reliably transfer to deployed victims, which is the more practical security goal.</li>
-          <li>This distinction is central to DivNet: the system is designed to break attack reuse across identical deployments.</li>
-        </ul>
+        <table>
+          <tr>
+            <td width="45%"><img src="materials/AE-Threat-Scenario1.png" width="100%"></td>
+            <td width="55%"><img src="materials/AE-Threat-Scenario2.png" width="98%"></td>
+          </tr>
+          <tr>
+            <td width="45%" style="text-align:justify;">An attacker embeds an IoT command such as "<em>open the front door</em>" into music clips. The audio sounds
+          normal to nearby listeners, yet a smart door system interprets it as a valid command and unlocks the door.</td>
+            <td width="55%" style="text-align:justify; padding-left:15px;">An attacker injects a malicious command such as "<em>transfer one thousand dollars</em>" into audio played to a smart assistant.
+          The underlying model interprets the adversarial audio as a legitimate instruction and executes an unauthorized financial
+          transaction.</td>
+        </tr>
+        </table>
       </section>
 
       <section class="section" id="approach">
-        <h2>Method Overview</h2>
+        <h2>How does DivNet work?</h2>
+        
         <p>
-          The key insight in the paper is that, in a large neural network, some weights are
-          comparatively unimportant for benign inputs but critical for adversarial examples. DivNet
-          performs a one-time offline analysis to find those weights, ranks them by asymmetric
-          significance, and identifies safe modification ranges that preserve benign recognition
-          quality while changing adversarial behavior.
+          <img style="display:block; margin: 0 auto" src="materials/system-overview.png">
         </p>
-        <ul class="bullet-list">
-          <li><strong>Weight ranking:</strong> DivNet analyzes which weights matter differently to benign inputs and adversarial examples.</li>
-          <li><strong>Selective modification:</strong> It modifies top-ranked weights within validated ranges instead of pruning blindly or changing weights at random.</li>
-          <li><strong>Variant generation:</strong> Different subsets of modified weights produce many model variants that behave similarly on benign inputs but diverge on adversarial inputs.</li>
-          <li><strong>Deployment model:</strong> Because variants are generated offline and then deployed as ordinary ASR models, the defense adds zero runtime overhead.</li>
-        </ul>
         <p>
-          In short, DivNet does not rely on runtime filtering, ensembles that must execute in
-          parallel, or generic randomness. It changes the deployment assumption itself: instead of a
-          single homogeneous model population, it creates a large family of orthogonal variants.
+          Our key insight is that, in a large neural network, some weights are unimportant for benign inputs yet <em>critical</em> for adversarial examples. By selectively modifying such weights, DivNet generates a model variant such that it produces consistent transcriptions for benign inputs while responding differently on adversarial ones. By modifying different subsets of AE-critical weights, DivNet generates a vast number of orthogonal variants that behave consistently on benign inputs yet diverge on adversarial inputs, so an adversarial input that succeeds on one instance is unlikely to bypass others.
+        </p>
+        <p>
+          DivNet operates in two phases comprising three key steps. In the <em>offline phase</em>, DivNet first analyzes the <em>asymmetric significance</em> of model weights on AEs versus benign inputs and ranks weights accordingly. It then identifies modification ranges such that the resulting variants preserve benign performance while reducing attack success. In the <em>online phase</em>, DivNet instantiates diverse ASR variants from those ranges for deployment, with a unique variant assigned to each device or service instance.
         </p>
       </section>
 
       <section class="section" id="results">
         <h2>Key Results</h2>
+        <!-- <p>
+          DivNet yields a vast number of orthogonal variants, preserving benign performance, defeating various adversarial attacks, withstanding adaptive attacks, and incurring zero runtime overhead. 
+        </p> -->
         <p>
-          Across the paper and the 20-second pitch slides, DivNet is positioned as a practical
-          defense with strong deployment-time benefits. The reported results show that it can
-          generate an enormous number of distinct variants while preserving utility and resisting a
-          broad range of attacks, including adaptive ones.
+          DivNet yields a vast number of orthogonal variants, preserving recognition accuracy, defeating adversarial attacks,
+          withstanding adaptive attacks, and incurring zero runtime overhead. Extensive evaluation across two ASR architectures,
+          multiple attack strategies, and diverse acoustic conditions demonstrates that DivNet consistently achieves near-zero
+          attack success rates with minimal impact on recognition accuracy.
         </p>
-        <div class="result-grid">
-          <div class="result-item">
-            <strong>Astronomically many orthogonal variants</strong>
-            <span>Independent generation produces naturally distinct model instances rather than a small fixed set of alternatives.</span>
-          </div>
-          <div class="result-item">
-            <strong>Preserved benign accuracy</strong>
-            <span>The paper reports minimal degradation on benign inputs, which is necessary for practical deployment.</span>
-          </div>
-          <div class="result-item">
-            <strong>Defeated adversarial inputs</strong>
-            <span>Attack transfer drops because success on one variant no longer implies success on another.</span>
-          </div>
-          <div class="result-item">
-            <strong>Withstood adaptive attacks</strong>
-            <span>Evaluation covers unseen attacks and adaptive strategies rather than only the attacks used during offline diversification.</span>
-          </div>
-          <div class="result-item">
-            <strong>Zero runtime overhead</strong>
-            <span>The defense cost is paid offline during analysis and variant generation, not during inference.</span>
-          </div>
-          <div class="result-item">
-            <strong>Deployment-oriented security</strong>
-            <span>Its main contribution is reducing attack-time AE success in realistic deployments, not merely increasing attacker effort at craft time.</span>
-          </div>
-        </div>
       </section>
     </main>
 
     <section class="citation" id="citation">
       <span class="eyebrow">Citation</span>
-      <p>
-        If you reference DivNet, cite the MobiSys 2026 paper below.
-      </p>
       <code>@inproceedings{meng2026divnet,
-  author = {Meng, Ying and Zeng, Qiang},
+  author = {Ying Meng and Qiang Zeng},
   title = {Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants},
   booktitle = {Proceedings of the 24th Annual International Conference on Mobile Systems, Applications and Services},
   series = {MobiSys '26},
