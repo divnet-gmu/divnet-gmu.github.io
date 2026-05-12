@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants</title>
+  <title>DivNet</title>
   <style>
     :root {
       color-scheme: light;
@@ -321,7 +321,7 @@
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark">DivNet</div>
-        <span>Diversified Neural Networks</span>
+        <span>DivNet</span>
       </div>
       <nav class="nav" aria-label="Section navigation">
         <a href="#overview">Overview</a>
@@ -336,7 +336,7 @@
       <section class="section">
         <span class="eyebrow">ACM MobiSys 2026</span>
         <!-- <h3>DivNet</h3> -->
-        <h2>Diversified Neural Networks:</h2>
+        <!-- <h2>Diversified Neural Networks:</h2> -->
         <h2>Defeating Adversarial Attacks via Numerous Orthogonal Variants</h2>
         <div class="project-meta">
           <p><a href="https://divnet-gmu.github.io/">Ying Meng</a> and <a href="https://cs.gmu.edu/~zeng">Qiang Zeng</a></p>
@@ -352,7 +352,7 @@
 
       <section class="section" id="overview">
         <h2>What is this all about?</h2>
-        <p>
+        <!-- <p>
           Modern automatic speech recognition (ASR) systems are typically deployed uniformly across devices and services. 
           Once an attacker crafts a successful adversarial example against one instance, the same input can be reused to attack all others. 
           Existing defenses largely overlook this threat, and once bypassed, offer no protection against attack reuse. 
@@ -366,7 +366,7 @@
           variants that behave consistently on normal inputs while responding differently to adversarial ones, so an attack that
           succeeds on one instance is unlikely to succeed on another. 
           DivNet achieves this with zero runtime overhead and minimal impact on recognition accuracy, and remains robust against adaptive attacks. 
-        </p>
+        </p> -->
       </section>
       <section class="section" id="threats">
         <h2>What are the threats?</h2>
@@ -392,7 +392,7 @@
       <section class="section" id="approach">
         <h2>How does DivNet work?</h2>
         
-        <p>
+        <!-- <p>
           <img style="display:block; margin: 0 auto" src="materials/system-overview.png">
         </p>
         <p>
@@ -400,7 +400,7 @@
         </p>
         <p>
           DivNet operates in two phases comprising three key steps. In the <em>offline phase</em>, DivNet first analyzes the <em>asymmetric significance</em> of model weights on AEs versus benign inputs and ranks weights accordingly. It then identifies modification ranges such that the resulting variants preserve benign performance while reducing attack success. In the <em>online phase</em>, DivNet instantiates diverse ASR variants from those ranges for deployment, with a unique variant assigned to each device or service instance.
-        </p>
+        </p> -->
       </section>
 
       <section class="section" id="results">
@@ -408,16 +408,16 @@
         <!-- <p>
           DivNet yields a vast number of orthogonal variants, preserving benign performance, defeating various adversarial attacks, withstanding adaptive attacks, and incurring zero runtime overhead. 
         </p> -->
-        <p>
+        <!-- <p>
           DivNet yields a vast number of orthogonal variants, preserving recognition accuracy, defeating adversarial attacks,
           withstanding adaptive attacks, and incurring zero runtime overhead. Extensive evaluation across two ASR architectures,
           multiple attack strategies, and diverse acoustic conditions demonstrates that DivNet consistently achieves near-zero
           attack success rates with minimal impact on recognition accuracy.
-        </p>
+        </p> -->
       </section>
     </main>
 
-    <section class="citation" id="citation">
+    <!-- <section class="citation" id="citation">
       <span class="eyebrow">Citation</span>
       <code>@inproceedings{meng2026divnet,
   author = {Ying Meng and Qiang Zeng},
@@ -428,7 +428,7 @@
   address = {Cambridge, United Kingdom},
   doi = {10.1145/3745756.3809215}
 }</code>
-    </section>
+    </section> -->
   </div>
 </body>
 </html>
