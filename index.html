@@ -314,6 +314,97 @@
         font-size: 2.35rem;
       }
     }
+
+    /* —— samples 表格样式（沿用你已有的变量）—— */
+    #samples { --danger: #bf4a2e; }
+  
+    .sample-group { margin-top: 30px; }
+    .sample-group:first-of-type { margin-top: 10px; }
+  
+    .sample-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.2rem;
+      color: var(--ink);
+    }
+  
+    .sample-note {
+      margin: 6px 0 0;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+  
+    .table-wrap {
+      margin-top: 14px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+  
+    table.sample-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+  
+    .sample-table th,
+    .sample-table td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(24, 33, 43, 0.08);
+    }
+  
+    .sample-table thead th {
+      font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      background: rgba(15, 92, 120, 0.06);
+      white-space: nowrap;
+    }
+  
+    .sample-table tbody tr:last-child td { border-bottom: 0; }
+  
+    .sample-table td.audio-cell { width: 220px; white-space: nowrap; }
+    .sample-table audio { width: 210px; height: 36px; }
+  
+    .transcript {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+  
+    .transcript.target {
+      color: var(--danger);
+      font-weight: 600;
+    }
+  
+    .legend-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      background: var(--danger);
+      vertical-align: baseline;
+      margin-right: 4px;
+    }
+  
+    @media (max-width: 720px) {
+      .sample-table th,
+      .sample-table td { padding: 10px; }
+      .sample-table td.audio-cell { width: 160px; }
+      .sample-table audio { width: 150px; }
+    }
+    
   </style>
 </head>
 <body>
@@ -376,10 +467,188 @@
         </h2>
         <p>A voice assistant can be tricked by a command buried inside ordinary audio — a sound you'd never notice, that your speaker hears loud and clear. <b>DivNet makes sure a trick built for one device falls flat on the next one.</b></p>
       </section>
-
+      
       <section class="section" id="samples">
         <h2>Samples</h2>
-        
+        <p class="sample-note">
+          The same audio is fed to three deployments of the same speech model: the
+          <strong>original</strong> and two diversified variants. On benign audio all three agree.
+          On adversarial audio, only the original model is fooled into the attacker's
+          <span class="legend-dot"></span><span style="color: var(--danger);">target phrase</span> —
+          each variant hears something else, and the two variants disagree with each other.
+        </p>
+      
+        <!-- ============ 1. BENIGN ============ -->
+        <div class="sample-group">
+          <h3 class="sample-title">Benign audio <span class="eyebrow">benign · all models agree</span></h3>
+          <p class="sample-note">Normal speech. Every model transcribes it the same way.</p>
+          <div class="table-wrap">
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Audio</th>
+                  <th>Original model</th>
+                  <th>Variant 1</th>
+                  <th>Variant 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/benign-1.wav" aria-label="benign sample 1"></audio></td>
+                  <td class="transcript">the quick brown fox jumps over the lazy dog</td>
+                  <td class="transcript">the quick brown fox jumps over the lazy dog</td>
+                  <td class="transcript">the quick brown fox jumps over the lazy dog</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/benign-2.wav" aria-label="benign sample 2"></audio></td>
+                  <td class="transcript">she sells seashells by the seashore</td>
+                  <td class="transcript">she sells seashells by the seashore</td>
+                  <td class="transcript">she sells seashells by the seashore</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- ============ 2. CW AEs (2 L2 + 2 Linf) ============ -->
+        <div class="sample-group">
+          <h3 class="sample-title">CW adversarial examples <span class="eyebrow">cw · l2 &amp; l∞</span></h3>
+          <p class="sample-note">Gradient-based attack. The original model is hijacked; the variants are not.</p>
+          <div class="table-wrap">
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Audio</th>
+                  <th>Original model</th>
+                  <th>Variant 1</th>
+                  <th>Variant 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/cw-l2-1.wav" aria-label="cw l2 sample 1"></audio></td>
+                  <td class="transcript target">open the front door</td>
+                  <td class="transcript">ell dor</td>
+                  <td class="transcript">oen yo</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/cw-l2-2.wav" aria-label="cw l2 sample 2"></audio></td>
+                  <td class="transcript target">unlock the back gate</td>
+                  <td class="transcript">un ock he ba gt</td>
+                  <td class="transcript">luk e bak ga</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/cw-linf-1.wav" aria-label="cw linf sample 1"></audio></td>
+                  <td class="transcript target">open the front door</td>
+                  <td class="transcript">pn duur</td>
+                  <td class="transcript">ole or th</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/cw-linf-2.wav" aria-label="cw linf sample 2"></audio></td>
+                  <td class="transcript target">call nine one one</td>
+                  <td class="transcript">cal nn wn</td>
+                  <td class="transcript">kah o un on</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- ============ 3. PHVC AEs ============ -->
+        <div class="sample-group">
+          <h3 class="sample-title">PHVC adversarial examples <span class="eyebrow">phvc · black-box</span></h3>
+          <p class="sample-note">Signal-processing hidden voice commands. Only the original obeys the command.</p>
+          <div class="table-wrap">
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Audio</th>
+                  <th>Original model</th>
+                  <th>Variant 1</th>
+                  <th>Variant 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/phvc-1.wav" aria-label="phvc sample 1"></audio></td>
+                  <td class="transcript target">open the front door</td>
+                  <td class="transcript">opn de for do</td>
+                  <td class="transcript">en thu dur</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/phvc-2.wav" aria-label="phvc sample 2"></audio></td>
+                  <td class="transcript target">turn off the alarm</td>
+                  <td class="transcript">tn of e arm</td>
+                  <td class="transcript">ur o th alm</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- ============ 4. KENKU AEs ============ -->
+        <div class="sample-group">
+          <h3 class="sample-title">KENKU adversarial examples <span class="eyebrow">kenku · black-box</span></h3>
+          <p class="sample-note">A state-of-the-art transferable attack. The variants still hold.</p>
+          <div class="table-wrap">
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Audio</th>
+                  <th>Original model</th>
+                  <th>Variant 1</th>
+                  <th>Variant 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/kenku-1.wav" aria-label="kenku sample 1"></audio></td>
+                  <td class="transcript target">open the front door</td>
+                  <td class="transcript">opn fra dor</td>
+                  <td class="transcript">o the frun do</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/kenku-2.wav" aria-label="kenku sample 2"></audio></td>
+                  <td class="transcript target">send the payment now</td>
+                  <td class="transcript">sen e pamen na</td>
+                  <td class="transcript">se th paymn no</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- ============ 5. ALIF AEs ============ -->
+        <div class="sample-group">
+          <h3 class="sample-title">ALIF adversarial examples <span class="eyebrow">alif · black-box</span></h3>
+          <p class="sample-note">Linguistic-feature attack with high reported transferability. Variants diverge.</p>
+          <div class="table-wrap">
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Audio</th>
+                  <th>Original model</th>
+                  <th>Variant 1</th>
+                  <th>Variant 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/alif-1.wav" aria-label="alif sample 1"></audio></td>
+                  <td class="transcript target">open the front door</td>
+                  <td class="transcript">opn th fon dr</td>
+                  <td class="transcript">en fro doa</td>
+                </tr>
+                <tr>
+                  <td class="audio-cell"><audio controls preload="none" src="audio/alif-2.wav" aria-label="alif sample 2"></audio></td>
+                  <td class="transcript target">disable the camera</td>
+                  <td class="transcript">dsab e kamr</td>
+                  <td class="transcript">di abl th camra</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </main>
 
