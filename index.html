@@ -350,27 +350,6 @@
         </div>
       </section>
 
-      <section class="section" id="overview">
-        <h2>One hidden sound shouldn't be able to fool <b>every</b> device at once.
-        </h2>
-        <p>A voice assistant can be tricked by a command buried inside ordinary audio — a sound you'd never notice, that your speaker hears loud and clear. <b>DivNet makes sure a trick built for one device falls flat on the next one.</b></p>
-        
-        <!-- <p>
-          Modern automatic speech recognition (ASR) systems are typically deployed uniformly across devices and services. 
-          Once an attacker crafts a successful adversarial example against one instance, the same input can be reused to attack all others. 
-          Existing defenses largely overlook this threat, and once bypassed, offer no protection against attack reuse. 
-          Software diversification is a well-established principle in computer security: rather than deploying identical systems,
-          introducing diversity across instances forces attackers to tailor exploits to each individual target, preventing a
-          single attack from compromising everyone. 
-          DivNet brings this principle to neural networks. 
-          The key insight behind DivNet is that, in a large neural network, some weights matter little for normal speech yet play
-          a critical role in adversarial attacks.
-          By selectively modifying such weights, DivNet generates a large number of model
-          variants that behave consistently on normal inputs while responding differently to adversarial ones, so an attack that
-          succeeds on one instance is unlikely to succeed on another. 
-          DivNet achieves this with zero runtime overhead and minimal impact on recognition accuracy, and remains robust against adaptive attacks. 
-        </p> -->
-      </section>
       <section class="section" id="threats">
         <h2>What are the threats?</h2>
         <p>
@@ -379,8 +358,8 @@
         </p>
         <table>
           <tr>
-            <td width="45%"><img src="materials/AE-Threat-Scenario1.png" width="100%"></td>
-            <td width="45%"><img src="materials/AE-Threat-Scenario2.png" width="85%"></td>
+            <td width="50%"><img src="materials/AE-Threat-Scenario1.png" width="100%"></td>
+            <td width="46%"><img src="materials/AE-Threat-Scenario2.png" width="90%"></td>
           </tr>
           <tr>
             <td width="45%" style="text-align:justify;">An attacker embeds an IoT command such as "<em>open the front door</em>" into music clips. The audio sounds
@@ -391,46 +370,30 @@
         </tr>
         </table>
       </section>
-
-      <section class="section" id="approach">
-        <h2>How does DivNet work?</h2>
-        
-        <!-- <p>
-          <img style="display:block; margin: 0 auto" src="materials/system-overview.png">
-        </p>
-        <p>
-          Our key insight is that, in a large neural network, some weights are unimportant for benign inputs yet <em>critical</em> for adversarial examples. By selectively modifying such weights, DivNet generates a model variant such that it produces consistent transcriptions for benign inputs while responding differently on adversarial ones. By modifying different subsets of AE-critical weights, DivNet generates a vast number of orthogonal variants that behave consistently on benign inputs yet diverge on adversarial inputs, so an adversarial input that succeeds on one instance is unlikely to bypass others.
-        </p>
-        <p>
-          DivNet operates in two phases comprising three key steps. In the <em>offline phase</em>, DivNet first analyzes the <em>asymmetric significance</em> of model weights on AEs versus benign inputs and ranks weights accordingly. It then identifies modification ranges such that the resulting variants preserve benign performance while reducing attack success. In the <em>online phase</em>, DivNet instantiates diverse ASR variants from those ranges for deployment, with a unique variant assigned to each device or service instance.
-        </p> -->
+      
+      <section class="section" id="idea">
+        <h2>One hidden sound shouldn't be able to fool <b>every</b> device at once.
+        </h2>
+        <p>A voice assistant can be tricked by a command buried inside ordinary audio — a sound you'd never notice, that your speaker hears loud and clear. <b>DivNet makes sure a trick built for one device falls flat on the next one.</b></p>
       </section>
 
-      <section class="section" id="results">
-        <h2>Key Results</h2>
-        <!-- <p>
-          DivNet yields a vast number of orthogonal variants, preserving benign performance, defeating various adversarial attacks, withstanding adaptive attacks, and incurring zero runtime overhead. 
-        </p> -->
-        <!-- <p>
-          DivNet yields a vast number of orthogonal variants, preserving recognition accuracy, defeating adversarial attacks,
-          withstanding adaptive attacks, and incurring zero runtime overhead. Extensive evaluation across two ASR architectures,
-          multiple attack strategies, and diverse acoustic conditions demonstrates that DivNet consistently achieves near-zero
-          attack success rates with minimal impact on recognition accuracy.
-        </p> -->
+      <section class="section" id="samples">
+        <h2>Samples</h2>
+        
       </section>
     </main>
 
     <!-- <section class="citation" id="citation">
       <span class="eyebrow">Citation</span>
       <code>@inproceedings{meng2026divnet,
-  author = {Ying Meng and Qiang Zeng},
-  title = {Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants},
-  booktitle = {Proceedings of the 24th Annual International Conference on Mobile Systems, Applications and Services},
-  series = {MobiSys '26},
-  year = {2026},
-  address = {Cambridge, United Kingdom},
-  doi = {10.1145/3745756.3809215}
-}</code>
+        author = {Ying Meng and Qiang Zeng},
+        title = {Diversified Neural Networks: Defeating Adversarial Attacks via Numerous Orthogonal Variants},
+        booktitle = {Proceedings of the 24th Annual International Conference on Mobile Systems, Applications and Services},
+        series = {MobiSys '26},
+        year = {2026},
+        address = {Cambridge, United Kingdom},
+        doi = {10.1145/3745756.3809215}
+      }</code>
     </section> -->
   </div>
 </body>
