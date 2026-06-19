@@ -465,8 +465,8 @@
       <section class="section" id="samples">
         <h2>Samples</h2>
         <p class="sample-note">
-          The same audio is fed to three deployments of the same speech model: the
-          <strong>original</strong> and two diversified variants. On benign audio all three agree.
+          The same audio is fed to each deployment: the
+          <strong>original</strong> (the attack target) and two of its variants. On benign audio all three recognize correctly and accurately. 
           On adversarial audio, only the original model is fooled into the attacker's
           <span class="legend-dot"></span><span style="color: var(--danger);">target phrase</span> —
           each variant hears something else, and the two variants disagree with each other.
