@@ -1,1 +1,1 @@
-[project website](divnet-gmu.github.io)
+[project website](https://divnet-gmu.github.io)
