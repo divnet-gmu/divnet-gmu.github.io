@@ -633,11 +633,24 @@
       <div class="container">
         <span class="kicker">The threat</span>
         <h2>When a harmless sound becomes a dangerous command.</h2>
-        <p class="lead">
+        <!-- <p class="lead">
           We increasingly rely on speech AI to control homes, cars,
           smartphones, and other connected systems. But a recording
           that sounds harmless to people can be deliberately altered
           to make an AI recognize a command the speaker never intended.
+        </p> -->
+        <p class="lead">
+        Attackers can fool voice assistants in two different ways.
+        In the first, an ordinary sentence like "How are you?"
+        still sounds normal to you, but the AI hears a completely
+        different command, such as "Open the door."
+      
+        In the second, attackers disguise a voice command so that
+        people can no longer understand it. It may sound like noise
+        or garbled speech, yet the AI still recognizes the hidden command.
+      
+        Listen to the examples below and see how DivNet prevents
+        these attacks while continuing to recognize normal speech.
         </p>
 
         <div class="story-grid">
@@ -877,11 +890,9 @@
           versions avoid that result.
         </p>
         <div class="tabs" id="tabs">
-          <button class="tab active" data-kind="normal">Everyday Speech</button>
-          <button class="tab" data-kind="cw">Subtle Audio Edits</button>
-          <!-- <button class="tab" data-kind="phvc">Hidden Commands</button> -->
-          <button class="tab" data-kind="hvc">Hidden Commands</button>
-          <!-- <button class="tab" data-kind="alif">Advanced Attacks</button> -->
+          <button class="tab active" data-kind="normal">Normal Speech</button>
+          <button class="tab" data-kind="cw">Distinguish Attack</button>
+          <button class="tab" data-kind="hvc">Hidden Commands Attack</button>
         </div>
         <p id="description" class="panel-description"></p>
 
@@ -972,34 +983,10 @@
         v1: "Your power is sufficient, I said",
         v2: "Your power is sufficient, I said"
       },
-      // {
-      //   kind: "cw",
-      //   file: "cw_l2-01-a_man_in_the_well.wav",
-      //   human: "I give my content",
-      //   original: "A man in the well",
-      //   v1: "Y my in",
-      //   v2: "A I ma insa well"
-      // },
-      // {
-      //   kind: "cw",
-      //   file: "cw_l2-02-yes_many_times.wav",
-      //   human: "Now to bed, boy",
-      //   original: "Yes many times",
-      //   v1: "Not recognized",
-      //   v2: "Yes a ane kines"
-      // },
-      // {
-      //   kind: "cw",
-      //   file: "cw_linf-01-i_know_now_what_brings_me_to_the_fire.wav",
-      //   human: "Your mother the queen was standing by",
-      //   original: "I know now what brings me to the fire",
-      //   v1: "Your mother the queen ma can e i",
-      //   v2: "Your mother the queen y standi by"
-      // },
       {
         kind: "cw",
         file: "cw_linf-02-where_is_my_wallet.wav",
-        human: "There just in front",
+        human: "Was this in your vent",
         original: "Where is my wallet",
         v1: "There is me aen",
         v2: "Where is meals ten"
@@ -1012,42 +999,10 @@
         v1: "I ten e mony men",
         v2: "A dreadeum he for"
       },
-      // {
-      //   kind: "phvc",
-      //   file: "phvc-01-turn_on_all_the_lights.wav",
-      //   human: null,
-      //   original: "Turn on all the lights",
-      //   v1: "Not recognized",
-      //   v2: "Care o the lics"
-      // },
-      // {
-      //   kind: "phvc",
-      //   file: "phvc-02-ah_what_shall_we_go_for_a_hole.wav",
-      //   human: null,
-      //   original: "Ah what shall we go for a hole",
-      //   v1: "Not recognized",
-      //   v2: "I watha over whole"
-      // },
-      // {
-      //   kind: "kenku",
-      //   file: "kenku-01-what_is_the_weather_today.wav",
-      //   human: null,
-      //   original: "What is the wheather today",
-      //   v1: "Not recognized",
-      //   v2: "Day"
-      // },
-      // {
-      //   kind: "kenku",
-      //   file: "kenku-02-unlock_the_doors.wav",
-      //   human: null,
-      //   original: "Unlock the doors",
-      //   v1: "Not recognized",
-      //   v2: "Ors"
-      // },
       {
         kind: "hvc",
         file: "alif-01-good_morning.wav",
-        human: null,
+        human: "No recognizable words",
         original: "Good morning",
         v1: "Not recognized",
         v2: "Not recognized"
@@ -1055,21 +1010,30 @@
       {
         kind: "hvc",
         file: "alif-02-clear_notification.wav",
-        human: null,
+        human: "Garbled speech",
         original: "Clear notification",
         v1: "Er nefication",
         v2: "Hoil nofication"
       }
     ];
 
-    const explanations = {
-      normal: "Normal speech. The original model and both variants recognize the same words.",
-      cw: "Listen for an ordinary sentence. Small changes to the recording cause the original AI to recognize a different, attacker-chosen phrase. The variants avoid that phrase.",
-      phvc: "These recordings demonstrate hidden voice commands. A person may find the audio difficult to understand, while the original AI identifies a particular command.",
-      kenku: "These are examples from KENKU, an attack designed to work across speech recognition systems.",
-      alif: "These examples come from ALIF, which exploits linguistic features to construct difficult audio attacks."
-    };
+    // const explanations = {
+    //   normal: "Normal speech. The original model and both variants recognize the same words.",
+    //   cw: "Listen for an ordinary sentence. Small changes to the recording cause the original AI to recognize a different, attacker-chosen phrase. The variants avoid that phrase.",
+    //   phvc: "These recordings demonstrate hidden voice commands. A person may find the audio difficult to understand, while the original AI identifies a particular command.",
+    //   kenku: "These are examples from KENKU, an attack designed to work across speech recognition systems.",
+    //   alif: "These examples come from ALIF, which exploits linguistic features to construct difficult audio attacks."
+    // };
 
+    const explanations = {
+      normal:
+        "Normal speech: The original AI and both DivNet variants recognize the same words.",
+      cw:
+        "Disguised speech: You hear an ordinary sentence, but the original AI hears a completely different command. DivNet prevents the attacker’s intended command from being recognized.",
+      hvc:
+        "Hidden voice commands: The audio sounds unintelligible to people, but the original AI still recognizes a hidden command. DivNet disrupts this attack."
+    };
+    
     function escapeHTML(s) {
       return String(s).replace(/[&<>"']/g, c => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;",
