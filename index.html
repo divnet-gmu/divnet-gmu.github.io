@@ -1034,21 +1034,14 @@
       }
     ];
 
-    // const explanations = {
-    //   normal: "Normal speech. The original model and both variants recognize the same words.",
-    //   cw: "Listen for an ordinary sentence. Small changes to the recording cause the original AI to recognize a different, attacker-chosen phrase. The variants avoid that phrase.",
-    //   phvc: "These recordings demonstrate hidden voice commands. A person may find the audio difficult to understand, while the original AI identifies a particular command.",
-    //   kenku: "These are examples from KENKU, an attack designed to work across speech recognition systems.",
-    //   alif: "These examples come from ALIF, which exploits linguistic features to construct difficult audio attacks."
-    // };
-
     const explanations = {
       normal:
         "Normal speech: The original AI and both DivNet variants recognize the same words.",
       cw:
         "Disguised speech: You hear an ordinary sentence, but the original AI hears a completely different command. DivNet prevents the attacker’s intended command from being recognized.",
       hvc:
-        "Hidden voice commands: The audio sounds unintelligible to people, but the original AI still recognizes a hidden command. DivNet disrupts this attack."
+        // "Hidden voice commands: The audio sounds unintelligible to people, but the original AI still recognizes a hidden command. DivNet disrupts this attack."
+        “Hidden voice commands: Attackers disguise voice commands so that they sound like garbled or broken speech. You cannot make out the actual words, such as or \"cancel my alarm clock,\" but the original voice assistant still recognizes these commands. DivNet prevents the hidden commands from being recognized.”
     };
     
     function escapeHTML(s) {
