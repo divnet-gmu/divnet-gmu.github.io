@@ -982,7 +982,8 @@
   </footer>
 
   <script>
-    const BASE = "https://divnet-gmu.github.io/audio/";
+    // const BASE = "https://divnet-gmu.github.io/audio/";
+    const BASE = "audio/";
     const samples = [
       {
         kind: "normal",
@@ -1059,7 +1060,7 @@
     <tr>
       <td>
         <small>Sample ${i + 1}</small>
-        <audio controls preload="none" src="${BASE + encodeURIComponent(s.file)}">
+        <audio controls preload="none" src="${BASE + s.file}">
           Your browser does not support audio.
         </audio>
       </td>
