@@ -1,750 +1,1109 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="DivNet: Breaking craft once, attack all with diversified speech AI. Research from George Mason University.">
-<title>DivNet — Breaking Craft Once, Attack All</title>
-<style>
-:root {
-  --dark:#112e32;
-  --green:#196b68;
-  --mint:#d8efdf;
-  --lime:#def19d;
-  --cream:#f8f7f2;
-  --ink:#173035;
-  --muted:#54696c;
-  --red:#a33d32;
-  --line:#dee6df;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0;
-  background:var(--cream);
-  color:var(--ink);
-  font:16px/1.7 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-}
-a { color:inherit; }
-button { font:inherit;cursor:pointer; }
-img { max-width:100%;display:block; }
-.container { max-width:1120px;margin:auto;padding:0 25px; }
-nav {
-  background:var(--dark);color:white;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px max(25px,calc((100vw - 1070px)/2));
-  gap:16px;
-}
-.logo { font-size:25px;font-weight:850;letter-spacing:-1px;text-decoration:none; }
-nav .links { display:flex;gap:22px;flex-wrap:wrap;font-size:13px; }
-nav .links a { text-decoration:none;color:#e4efea; }
-.hero {
-  color:white;background:var(--dark);
-  padding:95px 0 110px;
-  overflow:hidden;
-}
-.hero-grid {
-  display:grid;grid-template-columns:1.1fr .9fr;
-  align-items:center;gap:55px;
-}
-.kicker {
-  display:block;color:var(--green);
-  font-size:12px;font-weight:800;
-  text-transform:uppercase;letter-spacing:2px;
-  margin-bottom:17px;
-}
-.hero .kicker { color:var(--lime); }
-h1,h2,h3 { letter-spacing:-.045em;line-height:1.13; }
-h1 {
-  font-size:clamp(42px,5.4vw,76px);
-  line-height:1.07;
-  margin:0 0 25px;
-}
-h2 { font-size:clamp(30px,3.7vw,47px);margin:0 0 22px; }
-h3 { font-size:23px;margin:0 0 13px; }
-.hero p { color:#d6e5df;font-size:19px; }
-.hero strong { color:white; }
-.buttons { display:flex;flex-wrap:wrap;gap:12px;margin-top:28px; }
-.btn {
-  display:inline-block;padding:11px 21px;border-radius:30px;
-  text-decoration:none;font-weight:750;font-size:14px;
-  border:1px solid #90a6a1;
-}
-.btn.primary { background:var(--lime);color:var(--dark);border-color:var(--lime); }
-.btn.outline { color:white; }
-.byline { font-size:13px!important;color:#b5cbc3!important;margin-top:25px; }
-.demo {
-  background:white;color:var(--ink);
-  border-radius:23px;padding:28px;
-  box-shadow:0 25px 70px #0004;
-}
-.demo .caption {
-  font-size:12px;text-transform:uppercase;
-  letter-spacing:1px;color:#607470;font-weight:800;
-}
-.heard {
-  padding:18px;margin-top:12px;
-  border:1px solid var(--line);border-radius:13px;
-}
-.heard b { display:block;font-size:12px;color:#5b706d;margin-bottom:5px; }
-.heard strong { font-size:20px;color:var(--ink);line-height:1.3; }
-.heard.bad { background:#fff1ec;border-color:#f1d4ca; }
-.heard.bad strong { color:var(--red); }
-.heard.good { background:#e9f7ee;border-color:#b8dfca; }
-.heard.good strong { color:#206c57; }
-.demo small { color:#62716c;display:block;margin-top:17px;line-height:1.5; }
-section { padding:95px 0; }
-section.white { background:white; }
-.lead { font-size:19px;color:var(--muted);max-width:790px;margin-bottom:38px; }
-.two-col { display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center; }
-p { margin-top:0; }
-.story {
-  border:1px solid var(--line);border-radius:22px;
-  overflow:hidden;background:white;
-}
-.story img { width:100%;object-fit:contain;background:#f0f4f0; }
-.story .body { padding:25px; }
-.story p { color:var(--muted);margin:0; }
-.story-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
-.analogy {
-  background:#e9f2e9;border-radius:20px;padding:32px;
-}
-.analogy strong { color:var(--green); }
-.steps {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:20px;margin-top:35px;
-}
-.step {
-  background:white;border:1px solid var(--line);
-  border-radius:19px;padding:27px;
-}
-.step .number {
-  color:var(--green);font-weight:900;
-  font-size:13px;letter-spacing:1px;
-}
-.step p { color:var(--muted);margin-bottom:0; }
-.metrics {
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:16px;margin-top:35px;
-}
-.metric {
-  border:1px solid var(--line);
-  border-radius:19px;background:white;padding:25px;
-}
-.metric .value {
-  font-size:clamp(27px,3vw,43px);
-  font-weight:850;color:var(--green);
-  letter-spacing:-2px;
-}
-.metric h3 { font-size:17px;margin:8px 0;letter-spacing:-.02em; }
-.metric p { color:var(--muted);font-size:13px;margin:0; }
-.evidence {
-  border-left:4px solid var(--green);
-  padding:10px 0 10px 21px;margin-top:35px;
-  color:var(--muted);
-}
-.evidence strong { color:var(--ink); }
-.audio-section { background:#f0f4ef; }
-.tabs { display:flex;gap:9px;flex-wrap:wrap;margin:22px 0; }
-.tab {
-  border:1px solid #bdd1c6;background:white;color:var(--ink);
-  border-radius:30px;padding:10px 16px;font-weight:650;
-  font-size:13px;
-}
-.tab.active { background:var(--dark);color:white;border-color:var(--dark); }
-.table-scroll {
-  overflow-x:auto;background:white;
-  border:1px solid var(--line);border-radius:17px;
-}
-table { width:100%;min-width:950px;border-collapse:collapse; }
-th {
-  background:#e4f0e8;text-align:left;
-  color:#31554b;font-size:12px;
-  padding:16px;line-height:1.4;
-}
-td {
-  padding:16px;border-top:1px solid var(--line);
-  vertical-align:middle;font-size:14px;
-}
-td audio { width:170px;max-width:100%; }
-td:first-child { width:190px; }
-td:nth-child(n+2) { min-width:155px; }
-.danger { color:var(--red);font-weight:780; }
-.safe { color:#24695a; }
-.unsure { color:#8b9692;font-style:italic; }
-.audio-note {
-  margin-top:18px;font-size:13px;color:var(--muted);
-  max-width:900px;
-}
-.panel-description { color:var(--muted); }
-.paper {
-  background:var(--dark);color:white;
-}
-.paper p { color:#cfdfd7;max-width:800px; }
-.paper .kicker { color:var(--lime); }
-footer {
-  background:#0b2428;color:#c3d5ce;
-  padding:32px 0;font-size:13px;
-}
-footer a { color:#e4f3cc; }
-@media(max-width:800px) {
-  .hero-grid,.two-col,.story-grid { grid-template-columns:1fr; }
-  .steps { grid-template-columns:1fr; }
-  .metrics { grid-template-columns:1fr 1fr; }
-  .hero { padding:65px 0; }
-  section { padding:65px 0; }
-  .demo { max-width:560px; }
-}
-@media(max-width:500px) {
-  nav { align-items:flex-start;flex-direction:column; }
-  .metrics { grid-template-columns:1fr; }
-  h1 { font-size:43px; }
-  .container { padding:0 18px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="DivNet: Breaking craft once, attack all with diversified speech AI. Research from George Mason University.">
+  <title>DivNet — Breaking Craft Once, Attack All</title>
+  <style>
+    :root {
+      --dark: #112e32;
+      --green: #196b68;
+      --mint: #d8efdf;
+      --lime: #def19d;
+      --cream: #f8f7f2;
+      --ink: #173035;
+      --muted: #54696c;
+      --red: #a33d32;
+      --line: #dee6df;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: auto;
+      padding: 0 25px;
+    }
+
+    nav {
+      background: var(--dark);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px max(25px, calc((100vw - 1070px)/2));
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 850;
+      letter-spacing: -1px;
+      text-decoration: none;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    nav .links a {
+      text-decoration: none;
+      color: #e4efea;
+    }
+
+    .hero {
+      color: white;
+      background: var(--dark);
+      padding: 95px 0 110px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .kicker {
+      display: block;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 17px;
+    }
+
+    .hero .kicker {
+      color: var(--lime);
+    }
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: -.045em;
+      line-height: 1.13;
+    }
+
+    h1 {
+      font-size: clamp(42px, 5.4vw, 76px);
+      line-height: 1.07;
+      margin: 0 0 25px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 3.7vw, 47px);
+      margin: 0 0 22px;
+    }
+
+    h3 {
+      font-size: 23px;
+      margin: 0 0 13px;
+    }
+
+    .hero p {
+      color: #d6e5df;
+      font-size: 19px;
+    }
+
+    .hero strong {
+      color: white;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 21px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 14px;
+      border: 1px solid #90a6a1;
+    }
+
+    .btn.primary {
+      background: var(--lime);
+      color: var(--dark);
+      border-color: var(--lime);
+    }
+
+    .btn.outline {
+      color: white;
+    }
+
+    .byline {
+      font-size: 13px !important;
+      color: #b5cbc3 !important;
+      margin-top: 25px;
+    }
+
+    .demo {
+      background: white;
+      color: var(--ink);
+      border-radius: 23px;
+      padding: 28px;
+      box-shadow: 0 25px 70px #0004;
+    }
+
+    .demo .caption {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #607470;
+      font-weight: 800;
+    }
+
+    .heard {
+      padding: 18px;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+    }
+
+    .heard b {
+      display: block;
+      font-size: 12px;
+      color: #5b706d;
+      margin-bottom: 5px;
+    }
+
+    .heard strong {
+      font-size: 20px;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .heard.bad {
+      background: #fff1ec;
+      border-color: #f1d4ca;
+    }
+
+    .heard.bad strong {
+      color: var(--red);
+    }
+
+    .heard.good {
+      background: #e9f7ee;
+      border-color: #b8dfca;
+    }
+
+    .heard.good strong {
+      color: #206c57;
+    }
+
+    .demo small {
+      color: #62716c;
+      display: block;
+      margin-top: 17px;
+      line-height: 1.5;
+    }
+
+    section {
+      padding: 95px 0;
+    }
+
+    section.white {
+      background: white;
+    }
+
+    .lead {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 790px;
+      margin-bottom: 38px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    /* .story {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      background: white;
+    } */
+
+    /* .story img {
+      width: 100%;
+      object-fit: contain;
+      background: #f0f4f0;
+    } */
+
+    .story .body {
+      padding: 25px;
+    }
+
+    .story p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    } */
+     .story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      width: 80%;
+    }
+
+    .story {
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+      background: transparent;
+    }
+
+    .story img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .story .body {
+      padding: 20px 0 0;
+    }
+
+    .analogy {
+      background: #e9f2e9;
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .analogy strong {
+      color: var(--green);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 35px;
+    }
+
+    .step {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      padding: 27px;
+    }
+
+    .step .number {
+      color: var(--green);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .step p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 35px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: white;
+      padding: 25px;
+    }
+
+    .metric .value {
+      font-size: clamp(27px, 3vw, 43px);
+      font-weight: 850;
+      color: var(--green);
+      letter-spacing: -2px;
+    }
+
+    .metric h3 {
+      font-size: 17px;
+      margin: 8px 0;
+      letter-spacing: -.02em;
+    }
+
+    .metric p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .evidence {
+      border-left: 4px solid var(--green);
+      padding: 10px 0 10px 21px;
+      margin-top: 35px;
+      color: var(--muted);
+    }
+
+    .evidence strong {
+      color: var(--ink);
+    }
+
+    .audio-section {
+      background: #f0f4ef;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin: 22px 0;
+    }
+
+    .tab {
+      border: 1px solid #bdd1c6;
+      background: white;
+      color: var(--ink);
+      border-radius: 30px;
+      padding: 10px 16px;
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    .tab.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #e4f0e8;
+      text-align: left;
+      color: #31554b;
+      font-size: 12px;
+      padding: 16px;
+      line-height: 1.4;
+    }
+
+    td {
+      padding: 16px;
+      border-top: 1px solid var(--line);
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    td audio {
+      width: 170px;
+      max-width: 100%;
+    }
+
+    td:first-child {
+      width: 190px;
+    }
+
+    td:nth-child(n+2) {
+      min-width: 155px;
+    }
+
+    .danger {
+      color: var(--red);
+      font-weight: 780;
+    }
+
+    .safe {
+      color: #24695a;
+    }
+
+    .unsure {
+      color: #8b9692;
+      font-style: italic;
+    }
+
+    .audio-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 900px;
+    }
+
+    .panel-description {
+      color: var(--muted);
+    }
+
+    .paper {
+      background: var(--dark);
+      color: white;
+    }
+
+    .paper p {
+      color: #cfdfd7;
+      max-width: 800px;
+    }
+
+    .paper .kicker {
+      color: var(--lime);
+    }
+
+    footer {
+      background: #0b2428;
+      color: #c3d5ce;
+      padding: 32px 0;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #e4f3cc;
+    }
+
+    @media(max-width:800px) {
+
+      .hero-grid,
+      .two-col,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        padding: 65px 0;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .demo {
+        max-width: 560px;
+      }
+    }
+
+    @media(max-width:500px) {
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .container {
+        padding: 0 18px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<nav>
-  <a class="logo" href="#">DivNet</a>
-  <div class="links">
-    <a href="#threats">The Threat</a>
-    <a href="#solution">Our Solution</a>
-    <a href="#results">Results</a>
-    <a href="#samples">Hear It Yourself</a>
-    <a href="#paper">The Paper</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container hero-grid">
-    <div>
-      <span class="kicker">George Mason University · ACM MobiSys 2026</span>
-      <h1>One malicious recording shouldn't fool every voice assistant.</h1>
-      <p>
-        Imagine asking your voice assistant for the weather.
-        You hear a harmless question. But the AI hears
-        <strong>"Open the front door."</strong>
-      </p>
-      <p>
-        Tiny changes to an audio recording can make speech AI
-        hear something completely different from what people hear.
-        And when millions of devices use the same AI model,
-        attackers may be able to reuse the same trick again and again.
-      </p>
-      <p>
-        <strong>DivNet breaks this "craft once, attack all" pattern.</strong>
-        It turns one speech AI into an enormous family of different,
-        independently protected versions.
-      </p>
-      <div class="buttons">
-        <a class="btn primary" href="#samples">Hear the Examples ↓</a>
-        <a class="btn outline" href="#solution">How DivNet Works →</a>
-      </div>
-      <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
+  <nav>
+    <a class="logo" href="#">DivNet</a>
+    <div class="links">
+      <a href="#threats">The Threat</a>
+      <a href="#solution">Our Solution</a>
+      <a href="#results">Results</a>
+      <a href="#samples">Hear It Yourself</a>
+      <a href="#paper">The Paper</a>
     </div>
+  </nav>
 
-    <div class="demo">
-      <div class="caption">One recording. Different interpretations.</div>
-      <div class="heard">
-        <b>What a person hears</b>
-        <strong>"Alexa, what's the weather?"</strong>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="kicker">George Mason University · ACM MobiSys 2026</span>
+        <h1>One malicious recording shouldn't fool every voice assistant.</h1>
+        <p>
+          Imagine asking your voice assistant for the weather.
+          You hear a harmless question. But the AI hears
+          <strong>"Open the front door."</strong>
+        </p>
+        <p>
+          Tiny changes to an audio recording can make speech AI
+          hear something completely different from what people hear.
+          And when millions of devices use the same AI model,
+          attackers may be able to reuse the same trick again and again.
+        </p>
+        <p>
+          <strong>DivNet breaks this "craft once, attack all" pattern.</strong>
+          It turns one speech AI into an enormous family of different,
+          independently protected versions.
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="#samples">Hear the Examples ↓</a>
+          <a class="btn outline" href="#solution">How DivNet Works →</a>
+        </div>
+        <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
       </div>
-      <div class="heard bad">
-        <b>What a vulnerable AI might hear</b>
-        <strong>"Alexa, open the front door."</strong>
+
+      <div class="demo">
+        <div class="caption">One recording. Different interpretations.</div>
+        <div class="heard">
+          <b>What a person hears</b>
+          <strong>"Alexa, what's the weather?"</strong>
+        </div>
+        <div class="heard bad">
+          <b>What a vulnerable AI might hear</b>
+          <strong>"Alexa, open the front door."</strong>
+        </div>
+        <div class="heard good">
+          <b>What DivNet aims to do</b>
+          <strong>Stop the hidden command from working.</strong>
+        </div>
+        <small>
+          Illustrative scenario. Our experiments evaluated research
+          speech recognition models, not commercial Alexa devices.
+        </small>
       </div>
-      <div class="heard good">
-        <b>What DivNet aims to do</b>
-        <strong>Stop the hidden command from working.</strong>
-      </div>
-      <small>
-        Illustrative scenario. Our experiments evaluated research
-        speech recognition models, not commercial Alexa devices.
-      </small>
     </div>
-  </div>
-</header>
+  </header>
 
-<main>
-<section id="threats" class="white">
-  <div class="container">
-    <span class="kicker">The threat</span>
-    <h2>When a harmless sound becomes a dangerous command.</h2>
-    <p class="lead">
-      We increasingly rely on speech AI to control homes, cars,
-      smartphones, and other connected systems. But a recording
-      that sounds harmless to people can be deliberately altered
-      to make an AI recognize a command the speaker never intended.
-    </p>
+  <main>
+    <section id="threats" class="white">
+      <div class="container">
+        <span class="kicker">The threat</span>
+        <h2>When a harmless sound becomes a dangerous command.</h2>
+        <p class="lead">
+          We increasingly rely on speech AI to control homes, cars,
+          smartphones, and other connected systems. But a recording
+          that sounds harmless to people can be deliberately altered
+          to make an AI recognize a command the speaker never intended.
+        </p>
 
-    <div class="story-grid">
-      <article class="story">
-        <img src="https://divnet-gmu.github.io/images/AE-Threat-Scenario1.png"
-             alt="Illustration of a hidden audio command targeting a smart home"
-             loading="lazy">
-        <div class="body">
-          <h3>A song that opens your door?</h3>
+        <div class="story-grid">
+          <article class="story">
+            <img src="https://divnet-gmu.github.io/images/AE-Threat-Scenario1.png"
+              alt="Illustration of a hidden audio command targeting a smart home" loading="lazy">
+            <div class="body">
+              <h3>A song that opens your door?</h3>
+              <p>
+                Imagine music playing from a nearby speaker.
+                You hear an ordinary song. But hidden inside the sound
+                is a command that a vulnerable voice assistant interprets
+                as "open the front door."
+              </p>
+              <p>
+                In a system that permits such actions, the attacker
+                could potentially trigger a sensitive operation
+                without the listener realizing what happened.
+              </p>
+            </div>
+          </article>
+
+          <article class="story">
+            <img src="https://divnet-gmu.github.io/images/AE-Threat-Scenario2.png"
+              alt="Illustration of malicious audio targeting a voice-controlled banking assistant" loading="lazy">
+            <div class="body">
+              <h3>What if an AI heard a money-transfer command?</h3>
+              <p>
+                Picture someone using a voice-controlled banking service.
+                An attacker plays a manipulated sound nearby.
+                Although it does not sound like a money-transfer request
+                to the person, the AI interprets it as one.
+              </p>
+              <p>
+                This scenario illustrates why speech recognition errors
+                can matter beyond convenience, especially when AI
+                controls sensitive actions.
+              </p>
+            </div>
+          </article>
+        </div>
+        <p class="audio-note">
+          These illustrations describe potential attack scenarios.
+          They are not claims that our research compromised a
+          commercial smart-home or banking product.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container two-col">
+        <div>
+          <span class="kicker">The bigger problem</span>
+          <h2>One successful attack. Millions of possible targets.</h2>
           <p>
-            Imagine music playing from a nearby speaker.
-            You hear an ordinary song. But hidden inside the sound
-            is a command that a vulnerable voice assistant interprets
-            as "open the front door."
+            Modern AI models are often copied and deployed
+            across many devices. The copies may use exactly
+            the same internal settings.
           </p>
           <p>
-            In a system that permits such actions, the attacker
-            could potentially trigger a sensitive operation
-            without the listener realizing what happened.
+            That makes attacks easier to reuse. Once an attacker
+            finds a recording that fools one copy, the same recording
+            may work against many other copies.
+          </p>
+          <p>
+            <strong>Why should breaking into one AI potentially
+              give attackers a way into every identical AI?</strong>
           </p>
         </div>
-      </article>
-
-      <article class="story">
-        <img src="https://divnet-gmu.github.io/images/AE-Threat-Scenario2.png"
-             alt="Illustration of malicious audio targeting a voice-controlled banking assistant"
-             loading="lazy">
-        <div class="body">
-          <h3>What if an AI heard a money-transfer command?</h3>
+        <div class="analogy">
+          <h3>Imagine millions of homes sharing the same lock.</h3>
           <p>
-            Picture someone using a voice-controlled banking service.
-            An attacker plays a manipulated sound nearby.
-            Although it does not sound like a money-transfer request
-            to the person, the AI interprets it as one.
+            If every door uses the same lock, someone who finds
+            a working key can potentially open many doors.
           </p>
           <p>
-            This scenario illustrates why speech recognition errors
-            can matter beyond convenience, especially when AI
-            controls sensitive actions.
+            DivNet takes a different approach: give each AI
+            its own "lock."
+          </p>
+          <p>
+            <strong>A key made for one is unlikely to work on another.</strong>
+          </p>
+          <p>
+            That is the idea behind AI diversification.
           </p>
         </div>
-      </article>
-    </div>
-    <p class="audio-note">
-      These illustrations describe potential attack scenarios.
-      They are not claims that our research compromised a
-      commercial smart-home or banking product.
-    </p>
-  </div>
-</section>
-
-<section>
-  <div class="container two-col">
-    <div>
-      <span class="kicker">The bigger problem</span>
-      <h2>One successful attack. Millions of possible targets.</h2>
-      <p>
-        Modern AI models are often copied and deployed
-        across many devices. The copies may use exactly
-        the same internal settings.
-      </p>
-      <p>
-        That makes attacks easier to reuse. Once an attacker
-        finds a recording that fools one copy, the same recording
-        may work against many other copies.
-      </p>
-      <p>
-        <strong>Why should breaking into one AI potentially
-        give attackers a way into every identical AI?</strong>
-      </p>
-    </div>
-    <div class="analogy">
-      <h3>Imagine millions of homes sharing the same lock.</h3>
-      <p>
-        If every door uses the same lock, someone who finds
-        a working key can potentially open many doors.
-      </p>
-      <p>
-        DivNet takes a different approach: give each AI
-        its own "lock."
-      </p>
-      <p>
-        <strong>A key made for one is unlikely to work on another.</strong>
-      </p>
-      <p>
-        That is the idea behind AI diversification.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="solution" class="white">
-  <div class="container">
-    <span class="kicker">Our solution</span>
-    <h2>One AI model. Countless different locks.</h2>
-    <p class="lead">
-      DivNet does not need to build or train an entirely new AI
-      from scratch for every device. Instead, it makes carefully
-      selected changes inside an existing speech recognition model.
-      The resulting versions continue to understand everyday speech
-      while responding differently to maliciously manipulated audio.
-    </p>
-    <div class="steps">
-      <div class="step">
-        <span class="number">01 — FIND</span>
-        <h3>Find the weak spots.</h3>
-        <p>
-          DivNet studies which internal connections matter
-          most to an attack but matter relatively little
-          for recognizing normal speech.
-        </p>
       </div>
-      <div class="step">
-        <span class="number">02 — CHANGE</span>
-        <h3>Make small, targeted changes.</h3>
-        <p>
-          Instead of randomly damaging the model,
-          DivNet carefully changes selected connections
-          to interfere with attacks while retaining
-          everyday speech recognition.
+    </section>
+
+    <section id="solution" class="white">
+      <div class="container">
+        <span class="kicker">Our solution</span>
+        <h2>One AI model. Countless different locks.</h2>
+        <p class="lead">
+          DivNet does not need to build or train an entirely new AI
+          from scratch for every device. Instead, it makes carefully
+          selected changes inside an existing speech recognition model.
+          The resulting versions continue to understand everyday speech
+          while responding differently to maliciously manipulated audio.
         </p>
+        <div class="steps">
+          <div class="step">
+            <span class="number">01 — FIND</span>
+            <h3>Find the weak spots.</h3>
+            <p>
+              DivNet studies which internal connections matter
+              most to an attack but matter relatively little
+              for recognizing normal speech.
+            </p>
+          </div>
+          <div class="step">
+            <span class="number">02 — CHANGE</span>
+            <h3>Make small, targeted changes.</h3>
+            <p>
+              Instead of randomly damaging the model,
+              DivNet carefully changes selected connections
+              to interfere with attacks while retaining
+              everyday speech recognition.
+            </p>
+          </div>
+          <div class="step">
+            <span class="number">03 — DIVERSIFY</span>
+            <h3>Give devices different versions.</h3>
+            <p>
+              Each installation can receive a different AI variant.
+              An attack prepared for one version is unlikely
+              to work on another.
+            </p>
+          </div>
+        </div>
+        <div class="evidence">
+          <strong>And the AI can keep changing.</strong>
+          Because new versions are cheap to create, a device could
+          periodically switch between variants, making it harder
+          for attackers to rely on a single successful recording.
+          This is a potential deployment strategy, not a claim
+          that consumer products already use DivNet.
+        </div>
       </div>
-      <div class="step">
-        <span class="number">03 — DIVERSIFY</span>
-        <h3>Give devices different versions.</h3>
-        <p>
-          Each installation can receive a different AI variant.
-          An attack prepared for one version is unlikely
-          to work on another.
+    </section>
+
+    <section id="results">
+      <div class="container">
+        <span class="kicker">What we found</span>
+        <h2>Enormous variety. Tiny updates. No added recognition time.</h2>
+        <p class="lead">
+          We tested DivNet using two widely studied speech AI
+          systems, Wav2Vec2 and DeepSpeech, along with multiple
+          types of audio attacks, including attacks designed to
+          work across models and recordings played through speakers.
         </p>
-      </div>
-    </div>
-    <div class="evidence">
-      <strong>And the AI can keep changing.</strong>
-      Because new versions are cheap to create, a device could
-      periodically switch between variants, making it harder
-      for attackers to rely on a single successful recording.
-      This is a potential deployment strategy, not a claim
-      that consumer products already use DivNet.
-    </div>
-  </div>
-</section>
+        <div class="metrics">
+          <div class="metric">
+            <div class="value">99.6%</div>
+            <h3>Attack reuse failed</h3>
+            <p>
+              In a Wav2Vec2 test using CW-L2 adversarial recordings,
+              an average of approximately 99.6% of attacks successful
+              against the original model failed against DivNet variants.
+              See Table 3.
+            </p>
+          </div>
+          <div class="metric">
+            <div class="value">6.7 ms</div>
+            <h3>To create a new variant</h3>
+            <p>
+              Average DeepSpeech variant generation time,
+              after the required one-time offline analysis.
+              See Section 6.6.
+            </p>
+          </div>
+          <div class="metric">
+            <div class="value">115 KB</div>
+            <h3>Average update size</h3>
+            <p>
+              A compact update can describe the changes needed
+              for a new DeepSpeech variant without downloading
+              an entirely new model.
+            </p>
+          </div>
+          <div class="metric">
+            <div class="value">0 ms</div>
+            <h3>Extra recognition delay</h3>
+            <p>
+              DivNet does not add extra processing steps
+              during speech recognition. Variant creation
+              and updating are separate operations.
+            </p>
+          </div>
+        </div>
 
-<section id="results">
-  <div class="container">
-    <span class="kicker">What we found</span>
-    <h2>Enormous variety. Tiny updates. No added recognition time.</h2>
-    <p class="lead">
-      We tested DivNet using two widely studied speech AI
-      systems, Wav2Vec2 and DeepSpeech, along with multiple
-      types of audio attacks, including attacks designed to
-      work across models and recordings played through speakers.
-    </p>
-    <div class="metrics">
-      <div class="metric">
-        <div class="value">99.6%</div>
-        <h3>Attack reuse failed</h3>
-        <p>
-          In a Wav2Vec2 test using CW-L2 adversarial recordings,
-          an average of approximately 99.6% of attacks successful
-          against the original model failed against DivNet variants.
-          See Table 3.
+        <div class="evidence">
+          <h3>More variants than atoms in the observable universe.</h3>
+          <p>
+            "Trillions" vastly understates the possibilities.
+            Our mathematical analysis shows that even under strong
+            requirements that variants differ substantially,
+            the number of possible well-separated versions
+            exceeds 10<sup>54,000</sup>.
+          </p>
+          <p>
+            This is a theoretical lower bound on the number
+            of distinct configurations, not the number of variants
+            we physically generated or deployed.
+          </p>
+        </div>
+        <div class="evidence">
+          <h3>What happens when an attacker plays the recording out loud?</h3>
+          <p>
+            We also tested attacks using speakers and microphones
+            in a laboratory and a bedroom. In one laboratory test
+            at a 10 cm distance, a KENKU attack succeeded in
+            <strong>30 out of 30</strong> playbacks against an
+            identical target model, but only
+            <strong>1 out of 300</strong> playbacks across
+            ten different DivNet variants.
+          </p>
+          <p>
+            This comparison is one specific experimental setting,
+            not a universal guarantee that all audio attacks fail.
+            See Table 6.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="samples" class="audio-section">
+      <div class="container">
+        <span class="kicker">Hear it yourself</span>
+        <h2>Same recording. Different AI interpretations.</h2>
+        <p class="lead">
+          Listen to the audio, then compare what the original
+          speech AI recognized with what two DivNet versions recognized.
+          For normal speech, the versions generally agree.
+          For manipulated audio, the original model may output
+          the attacker's chosen phrase, while the diversified
+          versions avoid that result.
         </p>
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-kind="normal">Everyday Speech</button>
+          <button class="tab" data-kind="cw">Subtle Audio Edits</button>
+          <button class="tab" data-kind="phvc">Hidden Commands</button>
+          <button class="tab" data-kind="kenku">Attacks Across Models</button>
+          <button class="tab" data-kind="alif">Advanced Attacks</button>
+        </div>
+        <p id="description" class="panel-description"></p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Listen</th>
+                <th>Human hears</th>
+                <th>Original voice assistant hears</th>
+                <th>Our variant 1 hears</th>
+                <th>Our variant 2 hears</th>
+              </tr>
+            </thead>
+            <tbody id="audioRows"></tbody>
+          </table>
+        </div>
+        <div class="audio-note">
+          <p>
+            <strong>About "Human hears":</strong> This column gives
+            the original spoken reference provided with the project's
+            demo data when available. It is not a new human listening
+            study. When no reliable human transcript is available,
+            we do not invent one.
+          </p>
+          <p>
+            <strong>About the results:</strong> A variant's purpose
+            here is to prevent the attacker's chosen command from
+            being recognized. It does not always produce a perfect
+            transcript of the manipulated audio.
+            Audio samples and model outputs are from the original
+            project demonstration.
+          </p>
+        </div>
       </div>
-      <div class="metric">
-        <div class="value">6.7 ms</div>
-        <h3>To create a new variant</h3>
+    </section>
+
+    <section id="paper" class="paper">
+      <div class="container">
+        <span class="kicker">The research</span>
+        <h2>Learn more about DivNet.</h2>
         <p>
-          Average DeepSpeech variant generation time,
-          after the required one-time offline analysis.
-          See Section 6.6.
+          <strong>Ying Meng and Qiang Zeng.</strong>
+          "Diversified Neural Networks: Defeating Attack Reuse
+          via Numerous Orthogonal Variants."
+          The 24th Annual International Conference on Mobile
+          Systems, Applications and Services (ACM MobiSys 2026).
         </p>
-      </div>
-      <div class="metric">
-        <div class="value">115 KB</div>
-        <h3>Average update size</h3>
         <p>
-          A compact update can describe the changes needed
-          for a new DeepSpeech variant without downloading
-          an entirely new model.
+          George Mason University · Fairfax, Virginia · June 2026
         </p>
+        <div class="buttons">
+          <a class="btn primary" href="https://doi.org/10.1145/3745756.3809215" target="_blank">Read the Paper ↗</a>
+          <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Source Code ↗</a>
+          <!-- <a class="btn outline" href="mailto:ymeng2@gmu.edu?subject=DivNet%20Media%20Inquiry">
+            Media Contact ↗</a> -->
+        </div>
       </div>
-      <div class="metric">
-        <div class="value">0 ms</div>
-        <h3>Extra recognition delay</h3>
-        <p>
-          DivNet does not add extra processing steps
-          during speech recognition. Variant creation
-          and updating are separate operations.
-        </p>
-      </div>
-    </div>
+    </section>
+  </main>
 
-    <div class="evidence">
-      <h3>More variants than atoms in the observable universe.</h3>
+  <footer>
+    <div class="container">
+      DivNet · Ying Meng and Qiang Zeng · George Mason University
       <p>
-        "Trillions" vastly understates the possibilities.
-        Our mathematical analysis shows that even under strong
-        requirements that variants differ substantially,
-        the number of possible well-separated versions
-        exceeds 10<sup>54,000</sup>.
-      </p>
-      <p>
-        This is a theoretical lower bound on the number
-        of distinct configurations, not the number of variants
-        we physically generated or deployed.
+        Illustrative real-world scenarios are not claims of successful
+        attacks on commercial voice assistants or banking systems.
       </p>
     </div>
-    <div class="evidence">
-      <h3>What happens when an attacker plays the recording out loud?</h3>
-      <p>
-        We also tested attacks using speakers and microphones
-        in a laboratory and a bedroom. In one laboratory test
-        at a 10 cm distance, a KENKU attack succeeded in
-        <strong>30 out of 30</strong> playbacks against an
-        identical target model, but only
-        <strong>1 out of 300</strong> playbacks across
-        ten different DivNet variants.
-      </p>
-      <p>
-        This comparison is one specific experimental setting,
-        not a universal guarantee that all audio attacks fail.
-        See Table 6.
-      </p>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<section id="samples" class="audio-section">
-  <div class="container">
-    <span class="kicker">Hear it yourself</span>
-    <h2>Same recording. Different AI interpretations.</h2>
-    <p class="lead">
-      Listen to the audio, then compare what the original
-      speech AI recognized with what two DivNet versions recognized.
-      For normal speech, the versions generally agree.
-      For manipulated audio, the original model may output
-      the attacker's chosen phrase, while the diversified
-      versions avoid that result.
-    </p>
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-kind="normal">Everyday Speech</button>
-      <button class="tab" data-kind="cw">Subtle Audio Edits</button>
-      <button class="tab" data-kind="phvc">Hidden Commands</button>
-      <button class="tab" data-kind="kenku">Attacks Across Models</button>
-      <button class="tab" data-kind="alif">Advanced Attacks</button>
-    </div>
-    <p id="description" class="panel-description"></p>
+  <script>
+    const BASE = "https://divnet-gmu.github.io/audio/";
+    const samples = [
+      {
+        kind: "normal",
+        file: "1089-134691-0000.wav",
+        human: "He could wait no longer",
+        original: "He could wait no longer",
+        v1: "He could wait no longer",
+        v2: "He could wait no longer"
+      },
+      {
+        kind: "normal",
+        file: "8455-210777-0068.wav",
+        human: "Your power is sufficient, I said",
+        original: "Your power is sufficient, I said",
+        v1: "Your power is sufficient, I said",
+        v2: "Your power is sufficient, I said"
+      },
+      {
+        kind: "cw",
+        file: "cw_l2-01-a_man_in_the_well.wav",
+        human: "I give my content",
+        original: "A man in the well",
+        v1: "Y my in",
+        v2: "A I ma insa well"
+      },
+      {
+        kind: "cw",
+        file: "cw_l2-02-yes_many_times.wav",
+        human: "Now to bed, boy",
+        original: "Yes many times",
+        v1: "Not recognized",
+        v2: "Yes a ane kines"
+      },
+      {
+        kind: "cw",
+        file: "cw_linf-01-i_know_now_what_brings_me_to_the_fire.wav",
+        human: "Your mother the queen was standing by",
+        original: "I know now what brings me to the fire",
+        v1: "Your mother the queen ma can e i",
+        v2: "Your mother the queen y standi by"
+      },
+      {
+        kind: "cw",
+        file: "cw_linf-02-where_is_my_husband.wav",
+        human: "There just in front",
+        original: "Where is my husband",
+        v1: "There is me aen",
+        v2: "Where is meals ten"
+      },
+      {
+        kind: "cw",
+        file: "cw_linf-03-i_did_not_know_what_he_meant.wav",
+        human: "I have learned from my mistake",
+        original: "I did not know what he meant",
+        v1: "I ten e mony men",
+        v2: "A dreadeum what he ment"
+      },
+      {
+        kind: "phvc",
+        file: "phvc-01-turn_on_all_the_lights.wav",
+        human: null,
+        original: "Turn on all the lights",
+        v1: "Not recognized",
+        v2: "Care o the lics"
+      },
+      {
+        kind: "phvc",
+        file: "phvc-02-ah_what_shall_we_go_for_a_hole.wav",
+        human: null,
+        original: "Ah what shall we go for a hole",
+        v1: "Not recognized",
+        v2: "I watha over whole"
+      },
+      {
+        kind: "kenku",
+        file: "kenku-01-what_is_the_weather_today.wav",
+        human: null,
+        original: "What is the wheather today",
+        v1: "Not recognized",
+        v2: "Day"
+      },
+      {
+        kind: "kenku",
+        file: "kenku-02-unlock_the_doors.wav",
+        human: null,
+        original: "Unlock the doors",
+        v1: "Not recognized",
+        v2: "Ors"
+      },
+      {
+        kind: "alif",
+        file: "alif-01-good_morning.wav",
+        human: null,
+        original: "Good morning",
+        v1: "Not recognized",
+        v2: "Not recognized"
+      },
+      {
+        kind: "alif",
+        file: "alif-02-clear_notification.wav",
+        human: null,
+        original: "Clear notification",
+        v1: "Er nefication",
+        v2: "Hoil nofication"
+      }
+    ];
 
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Listen</th>
-            <th>Human hears</th>
-            <th>Original voice assistant hears</th>
-            <th>Our variant 1 hears</th>
-            <th>Our variant 2 hears</th>
-          </tr>
-        </thead>
-        <tbody id="audioRows"></tbody>
-      </table>
-    </div>
-    <div class="audio-note">
-      <p>
-        <strong>About "Human hears":</strong> This column gives
-        the original spoken reference provided with the project's
-        demo data when available. It is not a new human listening
-        study. When no reliable human transcript is available,
-        we do not invent one.
-      </p>
-      <p>
-        <strong>About the results:</strong> A variant's purpose
-        here is to prevent the attacker's chosen command from
-        being recognized. It does not always produce a perfect
-        transcript of the manipulated audio.
-        Audio samples and model outputs are from the original
-        project demonstration.
-      </p>
-    </div>
-  </div>
-</section>
+    const explanations = {
+      normal: "Normal speech. The original model and both variants recognize the same words.",
+      cw: "Listen for an ordinary sentence. Small changes to the recording cause the original AI to recognize a different, attacker-chosen phrase. The variants avoid that phrase.",
+      phvc: "These recordings demonstrate hidden voice commands. A person may find the audio difficult to understand, while the original AI identifies a particular command.",
+      kenku: "These are examples from KENKU, an attack designed to work across speech recognition systems.",
+      alif: "These examples come from ALIF, which exploits linguistic features to construct difficult audio attacks."
+    };
 
-<section id="paper" class="paper">
-  <div class="container">
-    <span class="kicker">The research</span>
-    <h2>Learn more about DivNet.</h2>
-    <p>
-      <strong>Ying Meng and Qiang Zeng.</strong>
-      "Diversified Neural Networks: Defeating Attack Reuse
-      via Numerous Orthogonal Variants."
-      The 24th Annual International Conference on Mobile
-      Systems, Applications and Services (ACM MobiSys 2026).
-    </p>
-    <p>
-      George Mason University · Fairfax, Virginia · June 2026
-    </p>
-    <div class="buttons">
-      <a class="btn primary" href="https://doi.org/10.1145/3745756.3809215"
-         target="_blank">Read the Paper ↗</a>
-      <a class="btn outline" href="https://github.com/divnet-gmu/divnet"
-         target="_blank">Source Code ↗</a>
-      <a class="btn outline" href="mailto:ymeng2@gmu.edu?subject=DivNet%20Media%20Inquiry">
-         Media Contact ↗</a>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="container">
-    DivNet · Ying Meng and Qiang Zeng · George Mason University
-    <p>
-      Illustrative real-world scenarios are not claims of successful
-      attacks on commercial voice assistants or banking systems.
-    </p>
-  </div>
-</footer>
-
-<script>
-const BASE="https://divnet-gmu.github.io/audio/";
-const samples=[
-  {
-    kind:"normal",
-    file:"1089-134691-0000.wav",
-    human:"He could wait no longer",
-    original:"He could wait no longer",
-    v1:"He could wait no longer",
-    v2:"He could wait no longer"
-  },
-  {
-    kind:"normal",
-    file:"8455-210777-0068.wav",
-    human:"Your power is sufficient, I said",
-    original:"Your power is sufficient, I said",
-    v1:"Your power is sufficient, I said",
-    v2:"Your power is sufficient, I said"
-  },
-  {
-    kind:"cw",
-    file:"cw_l2-01-a_man_in_the_well.wav",
-    human:"I give my content",
-    original:"A man in the well",
-    v1:"Y my in",
-    v2:"A I ma insa well"
-  },
-  {
-    kind:"cw",
-    file:"cw_l2-02-yes_many_times.wav",
-    human:"Now to bed, boy",
-    original:"Yes many times",
-    v1:"Not recognized",
-    v2:"Yes a ane kines"
-  },
-  {
-    kind:"cw",
-    file:"cw_linf-01-i_know_now_what_brings_me_to_the_fire.wav",
-    human:"Your mother the queen was standing by",
-    original:"I know now what brings me to the fire",
-    v1:"Your mother the queen ma can e i",
-    v2:"Your mother the queen y standi by"
-  },
-  {
-    kind:"cw",
-    file:"cw_linf-02-where_is_my_husband.wav",
-    human:"There just in front",
-    original:"Where is my husband",
-    v1:"There is me aen",
-    v2:"Where is meals ten"
-  },
-  {
-    kind:"cw",
-    file:"cw_linf-03-i_did_not_know_what_he_meant.wav",
-    human:"I have learned from my mistake",
-    original:"I did not know what he meant",
-    v1:"I ten e mony men",
-    v2:"A dreadeum what he ment"
-  },
-  {
-    kind:"phvc",
-    file:"phvc-01-turn_on_all_the_lights.wav",
-    human:null,
-    original:"Turn on all the lights",
-    v1:"Not recognized",
-    v2:"Care o the lics"
-  },
-  {
-    kind:"phvc",
-    file:"phvc-02-ah_what_shall_we_go_for_a_hole.wav",
-    human:null,
-    original:"Ah what shall we go for a hole",
-    v1:"Not recognized",
-    v2:"I watha over whole"
-  },
-  {
-    kind:"kenku",
-    file:"kenku-01-what_is_the_weather_today.wav",
-    human:null,
-    original:"What is the wheather today",
-    v1:"Not recognized",
-    v2:"Day"
-  },
-  {
-    kind:"kenku",
-    file:"kenku-02-unlock_the_doors.wav",
-    human:null,
-    original:"Unlock the doors",
-    v1:"Not recognized",
-    v2:"Ors"
-  },
-  {
-    kind:"alif",
-    file:"alif-01-good_morning.wav",
-    human:null,
-    original:"Good morning",
-    v1:"Not recognized",
-    v2:"Not recognized"
-  },
-  {
-    kind:"alif",
-    file:"alif-02-clear_notification.wav",
-    human:null,
-    original:"Clear notification",
-    v1:"Er nefication",
-    v2:"Hoil nofication"
-  }
-];
-
-const explanations={
-  normal:"Normal speech. The original model and both variants recognize the same words.",
-  cw:"Listen for an ordinary sentence. Small changes to the recording cause the original AI to recognize a different, attacker-chosen phrase. The variants avoid that phrase.",
-  phvc:"These recordings demonstrate hidden voice commands. A person may find the audio difficult to understand, while the original AI identifies a particular command.",
-  kenku:"These are examples from KENKU, an attack designed to work across speech recognition systems.",
-  alif:"These examples come from ALIF, which exploits linguistic features to construct difficult audio attacks."
-};
-
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
-  })[c]);
-}
-function render(kind){
-  document.querySelectorAll(".tab").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.kind===kind);
-  });
-  document.getElementById("description").textContent=explanations[kind];
-  const chosen=samples.filter(x=>x.kind===kind);
-  document.getElementById("audioRows").innerHTML=chosen.map((s,i)=>`
+    function escapeHTML(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+      })[c]);
+    }
+    function render(kind) {
+      document.querySelectorAll(".tab").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.kind === kind);
+      });
+      document.getElementById("description").textContent = explanations[kind];
+      const chosen = samples.filter(x => x.kind === kind);
+      document.getElementById("audioRows").innerHTML = chosen.map((s, i) => `
     <tr>
       <td>
-        <small>Sample ${i+1}</small>
-        <audio controls preload="none" src="${BASE+encodeURIComponent(s.file)}">
+        <small>Sample ${i + 1}</small>
+        <audio controls preload="none" src="${BASE + encodeURIComponent(s.file)}">
           Your browser does not support audio.
         </audio>
       </td>
       <td>${s.human
-        ?escapeHTML(s.human)
-        :'<span class="unsure">No verified listener transcript</span>'}</td>
-      <td class="${kind==="normal"?"":"danger"}">${escapeHTML(s.original)}</td>
-      <td class="${kind==="normal"?"safe":""}">${escapeHTML(s.v1)}</td>
-      <td class="${kind==="normal"?"safe":""}">${escapeHTML(s.v2)}</td>
+          ? escapeHTML(s.human)
+          : '<span class="unsure">No verified listener transcript</span>'}</td>
+      <td class="${kind === "normal" ? "" : "danger"}">${escapeHTML(s.original)}</td>
+      <td class="${kind === "normal" ? "safe" : ""}">${escapeHTML(s.v1)}</td>
+      <td class="${kind === "normal" ? "safe" : ""}">${escapeHTML(s.v2)}</td>
     </tr>
   `).join("");
-}
-document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click",()=>render(btn.dataset.kind));
-});
-render("normal");
-</script>
+    }
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => render(btn.dataset.kind));
+    });
+    render("normal");
+  </script>
 </body>
+
 </html>
