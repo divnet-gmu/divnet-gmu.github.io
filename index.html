@@ -494,6 +494,63 @@
       color: var(--lime);
     }
 
+    /* DivNet overview figure */
+    .paper-figure {
+      margin: 32px 0 36px;
+      width: 60%;
+    }
+
+    .paper-figure > a {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+      padding: 4px;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .paper-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .paper-figure figcaption {
+      margin-top: 12px;
+      color: #cfdfd7;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .paper-figure figcaption a {
+      color: var(--lime);
+      margin-left: 8px;
+      text-decoration: none;
+    }
+
+    .paper-figure figcaption a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile layout */
+    @media (max-width: 600px) {
+      .paper-figure {
+        margin: 24px 0 30px;
+      }
+
+      .paper-figure > a {
+        padding: 8px;
+        border-radius: 10px;
+      }
+
+      .paper-figure figcaption {
+        font-size: 0.85rem;
+      }
+    }
+
     footer {
       background: #0b2428;
       color: #c3d5ce;
@@ -896,6 +953,41 @@
       <div class="container">
         <span class="kicker">The research</span>
         <h2>Learn more about DivNet.</h2>
+    
+        <p>
+          <strong>Ying Meng and Qiang Zeng.</strong>
+          "Diversified Neural Networks: Defeating Attack Reuse via Numerous Orthogonal Variants."
+          The 24th Annual International Conference on Mobile Systems,
+          Applications and Services (ACM MobiSys 2026).
+        </p>
+    
+        <p>
+          ACM MobiSys 2026 · Cambridge, UK · June 21–25, 2026
+        </p>
+    
+        <!-- DivNet overview figure -->
+        <figure class="paper-figure">
+          <a href="images/wedit.png" target="_blank" title="View full-size figure">
+            <img src="images/wedit.png" alt="Overview of how DivNet generates numerous diversified neural network variants"
+              loading="lazy">
+          </a>
+          <figcaption>
+            DivNet makes small, carefully chosen changes inside a speech AI, creating many different versions that still understand
+            normal speech but respond differently to malicious recordings.
+          </figcaption>
+        </figure>
+    
+        <div class="buttons">
+          <a class="btn primary" href="https://doi.org/10.1145/3745756.3809215" target="_blank">Read the Paper ↗</a>
+    
+          <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Demo Variants ↗</a>
+        </div>
+      </div>
+    </section>
+    <!-- <section id="paper" class="paper">
+      <div class="container">
+        <span class="kicker">The research</span>
+        <h2>Learn more about DivNet.</h2>
         <p>
           <strong>Ying Meng and Qiang Zeng.</strong>
           "Diversified Neural Networks: Defeating Attack Reuse via Numerous Orthogonal Variants."
@@ -909,7 +1001,7 @@
           <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Demo Variants ↗</a>
         </div>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <footer>
