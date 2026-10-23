@@ -715,10 +715,10 @@
             finds a recording that fools one copy, the same recording
             may work against many other copies.
           </p>
-          <p>
+          <!-- <p>
             <strong>Why should breaking into one AI potentially
               give attackers a way into every identical AI?</strong>
-          </p>
+          </p> -->
         </div>
         <div class="analogy">
           <h3>Imagine millions of homes sharing the same lock.</h3>
@@ -857,7 +857,7 @@
             we physically generated or deployed.
           </p>
         </div>
-        <div class="evidence">
+        <!-- <div class="evidence">
           <h3>What happens when an attacker plays the recording out loud?</h3>
           <p>
             We also tested attacks using speakers and microphones
@@ -873,7 +873,7 @@
             not a universal guarantee that all audio attacks fail.
             See Table 6.
           </p>
-        </div>
+        </div> -->
       </div>
     </section>
 
@@ -953,17 +953,15 @@
         <h2>Learn more about DivNet.</h2>
         <p>
           <strong>Ying Meng and Qiang Zeng.</strong>
-          "Diversified Neural Networks: Defeating Attack Reuse
-          via Numerous Orthogonal Variants."
-          The 24th Annual International Conference on Mobile
-          Systems, Applications and Services (ACM MobiSys 2026).
+          "Diversified Neural Networks: Defeating Attack Reuse via Numerous Orthogonal Variants."
+          The 24th Annual International Conference on Mobile Systems, Applications and Services (ACM MobiSys 2026).
         </p>
         <p>
           ACM MobiSys 2026 · Cambridge, UK · June 21–25, 2026
         </p>
         <div class="buttons">
           <a class="btn primary" href="https://doi.org/10.1145/3745756.3809215" target="_blank">Read the Paper ↗</a>
-          <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Source Code ↗</a>
+          <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Demo Variants ↗</a>
           <!-- <a class="btn outline" href="mailto:ymeng2@gmu.edu?subject=DivNet%20Media%20Inquiry">
             Media Contact ↗</a> -->
         </div>
@@ -982,65 +980,56 @@
   </footer>
 
   <script>
-    // const BASE = "https://divnet-gmu.github.io/audio/";
     const BASE = "audio/";
     const samples = [
       {
         kind: "normal",
         file: "1089-134691-0000.wav",
-        human: "He could wait no longer",
-        original: "He could wait no longer",
-        v1: "He could wait no longer",
-        v2: "He could wait no longer"
+        human: "\"He could wait no longer\"",
+        original: "\"He could wait no longer\"",
+        v1: "\"He could wait no longer\"",
+        v2: "\"He could wait no longer\""
       },
       {
         kind: "normal",
         file: "8455-210777-0068.wav",
-        human: "Your power is sufficient, I said",
-        original: "Your power is sufficient, I said",
-        v1: "Your power is sufficient, I said",
-        v2: "Your power is sufficient, I said"
+        human: "\"Your power is sufficient, I said\"",
+        original: "\"Your power is sufficient, I said\"",
+        v1: "\"Your power is sufficient, I said\"",
+        v2: "\"Your power is sufficient, I said\""
       },
       {
         kind: "cw",
         file: "cw_welsh-open_the_door.wav",
-        human: "Yes, it worked",
-        original: "Open the door",
-        v1: "At the loard",
-        v2: "pet the dor"
+        human: "\"Yes, it worked\"",
+        original: "\"Open the door\"",
+        v1: "\"At the loard\"",
+        v2: "\"pet the dor\""
       },
       {
         kind: "cw",
         file: "cw_en-transfer_thousand_dollars_to_devil.wav",
-        human: "He would need that machine",
-        original: "Transfer thousand dollars to devil",
-        v1: "Osan dollars devil",
-        v2: "Thosen dotlar sidivil"
+        human: "\"He would need that machine\"",
+        original: "\"Transfer thousand dollars to devil\"",
+        v1: "\"Osan dollars devil\"",
+        v2: "\"Thosen dotlar sidivil\""
       },
       {
         kind: "hvc",
         file: "alif-cancel_my_alarm_clock.wav",
-        human: "Garbled speech",
-        original: "Cancel my alarm clock",
-        v1: "Not recognized",
-        v2: "Not recognized"
+        human: "Noise",
+        original: "\"Cancel my alarm clock\"",
+        v1: "No response",
+        v2: "No response"
       },
       {
         kind: "hvc",
         file: "alif-turn_on_the_light.wav",
-        human: "Garbled speech",
-        original: "Turn on the light",
-        v1: "Ter i",
-        v2: "Not recognized"
+        human: "Noise",
+        original: "\"Turn on the light\"",
+        v1: "\"Ter i\"",
+        v2: "No response"
       }
-      // {
-      //   kind: "hvc",
-      //   file: "alif-02-clear_notification.wav",
-      //   human: "Garbled speech",
-      //   original: "Clear notification",
-      //   v1: "Er nefication",
-      //   v2: "Hoil nofication"
-      // }
     ];
 
     const explanations = {
