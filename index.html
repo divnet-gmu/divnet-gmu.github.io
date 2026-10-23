@@ -18,6 +18,7 @@
       --muted: #54696c;
       --red: #a33d32;
       --line: #dee6df;
+      --blue: #356C85;
     }
 
     * {
@@ -121,7 +122,7 @@
 
     h1 {
       font-size: clamp(42px, 5.4vw, 76px);
-      line-height: 1.07;
+      line-height: 1.05;
       margin: 0 0 25px;
     }
 
@@ -249,7 +250,7 @@
     .lead {
       font-size: 19px;
       color: var(--muted);
-      max-width: 790px;
+      /* max-width: 790px; */
       margin-bottom: 38px;
     }
 
@@ -390,11 +391,12 @@
       border-left: 4px solid var(--green);
       padding: 10px 0 10px 21px;
       margin-top: 35px;
-      color: var(--muted);
+      color: var(--blue);
+      font-style: italic;
     }
 
     .evidence strong {
-      color: var(--ink);
+      color: var(--blue);
     }
 
     .audio-section {
@@ -610,33 +612,6 @@
         <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
       </div>
 
-    <!-- <div class="container hero-grid">
-      <div>
-        <span class="kicker">George Mason University · ACM MobiSys 2026</span>
-        <h1>One malicious recording shouldn't fool every voice assistant.</h1>
-        <p>
-          Imagine asking your voice assistant for the weather.
-          You hear a harmless question. But the AI hears
-          <strong>"Open the front door."</strong>
-        </p>
-        <p>
-          Tiny changes to an audio recording can make speech AI
-          hear something completely different from what people hear.
-          And when millions of devices use the same AI model,
-          attackers may be able to reuse the same trick again and again.
-        </p>
-        <p>
-          <strong>DivNet breaks this "craft once, attack all" pattern.</strong>
-          It turns one speech AI into an enormous family of different,
-          independently protected variants.
-        </p>
-        <div class="buttons">
-          <a class="btn primary" href="#samples">Hear the Examples ↓</a>
-          <a class="btn outline" href="#solution">How DivNet Works →</a>
-        </div>
-        <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
-      </div> -->
-
       <div class="demo">
         <div class="caption">One recording. Different interpretations.</div>
         <div class="heard">
@@ -651,18 +626,6 @@
           <b>What DivNet aims to do</b>
           <strong>Stop the attack from working.</strong>
         </div>
-        <!-- <div class="heard">
-          <b>What a person hears</b>
-          <strong>"Alexa, what's the weather?"</strong>
-        </div>
-        <div class="heard bad">
-          <b>What a vulnerable AI might hear</b>
-          <strong>"Alexa, open the front door."</strong>
-        </div>
-        <div class="heard good">
-          <b>What DivNet aims to do</b>
-          <strong>Stop the hidden command from working.</strong>
-        </div> -->
         <small>
           Illustrative scenario. Our experiments evaluated research
           speech recognition models, not commercial Alexa devices.
@@ -676,12 +639,6 @@
       <div class="container">
         <span class="kicker">The threat</span>
         <h2>When a harmless sound becomes a dangerous command.</h2>
-        <!-- <p class="lead">
-          We increasingly rely on speech AI to control homes, cars,
-          smartphones, and other connected systems. But a recording
-          that sounds harmless to people can be deliberately altered
-          to make an AI recognize a command the speaker never intended.
-        </p> -->
         <p class="lead">
         Attackers can fool voice assistants in two different ways.
         In the first, an ordinary sentence like "How are you?"
@@ -758,10 +715,6 @@
             finds a recording that fools one copy, the same recording
             may work against many other copies.
           </p>
-          <!-- <p>
-            <strong>Why should breaking into one AI potentially
-              give attackers a way into every identical AI?</strong>
-          </p> -->
         </div>
         <div class="analogy">
           <h3>Imagine millions of homes sharing the same lock.</h3>
@@ -889,10 +842,13 @@
           <h3>More variants than atoms in the observable universe.</h3>
           <p>
             "Trillions" vastly understates the possibilities.
-            Our mathematical analysis shows that even under strong
-            requirements that variants differ substantially,
-            the number of possible well-separated variants 
-            exceeds the number of observable  10<sup>54,000</sup>.
+            Even when we require variants to differ substantially,
+            our mathematical analysis reveals an extraordinary scale:
+          </p>
+          <p style="text-align: center; font-size: 1.12rem; font-weight: 650;">
+            Number of possible DivNet variants
+            &gt;
+            Number of atoms in the observable universe
           </p>
           <p>
             This is a theoretical lower bound on the number
@@ -915,12 +871,6 @@
           the attacker's chosen phrase, while the diversified
           variants avoid that result.
         </p>
-        <div class="tabs" id="tabs">
-          <button class="tab active" data-kind="normal">Normal Speech</button>
-          <button class="tab" data-kind="cw">Distinguish Attack</button>
-          <button class="tab" data-kind="hvc">Hidden Commands Attack</button>
-        </div>
-        <p id="description" class="panel-description"></p>
 
         <div class="table-scroll">
           <table>
@@ -945,7 +895,6 @@
             These are illustrative listening descriptions, not results
             from a formal human listening study.
           </p>
-        
           <p>
             <strong>What DivNet does:</strong>
             DivNet prevents the AI from recognizing the attacker's
@@ -953,23 +902,6 @@
             every original word perfectly.
           </p>
         </div>
-        <!-- <div class="audio-note">
-          <p>
-            <strong>About "Human hears":</strong> This column gives
-            the original spoken reference provided with the project's
-            demo data when available. It is not a new human listening
-            study. When no reliable human transcript is available,
-            we do not invent one.
-          </p>
-          <p>
-            <strong>About the results:</strong> A variant's purpose
-            here is to prevent the attacker's chosen command from
-            being recognized. It does not always produce a perfect
-            transcript of the manipulated audio.
-            Audio samples and model outputs are from the original
-            project demonstration.
-          </p>
-        </div> -->
       </div>
     </section>
 
@@ -988,8 +920,6 @@
         <div class="buttons">
           <a class="btn primary" href="https://doi.org/10.1145/3745756.3809215" target="_blank">Read the Paper ↗</a>
           <a class="btn outline" href="https://github.com/divnet-gmu/divnet" target="_blank">Demo Variants ↗</a>
-          <!-- <a class="btn outline" href="mailto:ymeng2@gmu.edu?subject=DivNet%20Media%20Inquiry">
-            Media Contact ↗</a> -->
         </div>
       </div>
     </section>
@@ -1057,15 +987,6 @@
         v2: "No response"
       }
     ];
-
-    const explanations = {
-      normal:
-        "Normal speech: The original AI and both DivNet variants recognize the same words.",
-      cw:
-        "Disguised speech: You hear an ordinary sentence, but the original AI hears a completely different command. DivNet prevents the attacker’s intended command from being recognized.",
-      hvc:
-        "Hidden voice commands: Attackers disguise voice commands so that they sound like garbled or broken speech. You cannot make out the actual words, such as or \"cancel my alarm clock,\" but the original voice assistant still recognizes these commands. DivNet prevents the hidden commands from being recognized."
-    };
     
     function escapeHTML(s) {
       return String(s).replace(/[&<>"']/g, c => ({
@@ -1073,33 +994,31 @@
         '"': "&quot;", "'": "&#39;"
       })[c]);
     }
-    function render(kind) {
-      document.querySelectorAll(".tab").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.kind === kind);
-      });
-      document.getElementById("description").textContent = explanations[kind];
-      const chosen = samples.filter(x => x.kind === kind);
-      document.getElementById("audioRows").innerHTML = chosen.map((s, i) => `
-    <tr>
-      <td>
-        <small>Sample ${i + 1}</small>
-        <audio controls preload="none" src="${BASE + s.file}">
-          Your browser does not support audio.
-        </audio>
-      </td>
-      <td>${s.human
-          ? escapeHTML(s.human)
-          : '<span class="unsure">No verified listener transcript</span>'}</td>
-      <td class="${kind === "normal" ? "" : "danger"}">${escapeHTML(s.original)}</td>
-      <td class="${kind === "normal" ? "safe" : ""}">${escapeHTML(s.v1)}</td>
-      <td class="${kind === "normal" ? "safe" : ""}">${escapeHTML(s.v2)}</td>
-    </tr>
-  `).join("");
+    function renderSamples() {
+        document.getElementById("audioRows").innerHTML = samples.map((s, i) => `
+        <tr>
+          <td>
+            <small>Sample ${i + 1}</small>
+            <audio controls preload="none" src="${BASE + s.file}">
+              Your browser does not support audio.
+            </audio>
+          </td>
+          <td>${s.human
+                ? escapeHTML(s.human)
+                : '<span class="unsure">No verified listener transcript</span>'}</td>
+          <td class="${s.kind === "normal" ? "" : "danger"}">
+            ${escapeHTML(s.original)}
+          </td>
+          <td class="${s.kind === "normal" ? "safe" : ""}">
+            ${escapeHTML(s.v1)}
+          </td>
+          <td class="${s.kind === "normal" ? "safe" : ""}">
+            ${escapeHTML(s.v2)}
+          </td>
+        </tr>
+      `).join("");
     }
-    document.querySelectorAll(".tab").forEach(btn => {
-      btn.addEventListener("click", () => render(btn.dataset.kind));
-    });
-    render("normal");
+    renderSamples();
   </script>
 </body>
 
