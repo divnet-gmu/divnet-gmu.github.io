@@ -265,19 +265,6 @@
       margin-top: 0;
     }
 
-    /* .story {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      overflow: hidden;
-      background: white;
-    } */
-
-    /* .story img {
-      width: 100%;
-      object-fit: contain;
-      background: #f0f4f0;
-    } */
-
     .story .body {
       padding: 25px;
     }
@@ -287,11 +274,6 @@
       margin: 0;
     }
 
-    /* .story-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    } */
      .story-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -480,6 +462,11 @@
     .unsure {
       color: #8b9692;
       font-style: italic;
+    }
+
+    .sample-description {
+      font-style: italic;
+      color: var(--muted);
     }
 
     .audio-note {
@@ -960,7 +947,7 @@
         human: "\"Yes, it worked\"",
         original: "\"Open the door\"",
         v1: "\"At the loard\"",
-        v2: "\"pet the dor\""
+        v2: "\"Pet the dor\""
       },
       {
         kind: "cw",
@@ -975,8 +962,8 @@
         file: "alif-cancel_my_alarm_clock.wav",
         human: "Noise",
         original: "\"Cancel my alarm clock\"",
-        v1: "No response",
-        v2: "No response"
+        v1: "No transcription",
+        v2: "No transcription"
       },
       {
         kind: "hvc",
@@ -984,7 +971,7 @@
         human: "Noise",
         original: "\"Turn on the light\"",
         v1: "\"Ter i\"",
-        v2: "No response"
+        v2: "No transcription"
       }
     ];
     
@@ -994,26 +981,53 @@
         '"': "&quot;", "'": "&#39;"
       })[c]);
     }
+
+    const descriptions = new Set([
+        "Noise",
+        "No transcription"
+    ]);
+
+      function formatSampleText(value) {
+        if (value === "") {
+          value = "No transcription";
+        }
+
+        const text = escapeHTML(value);
+
+        return descriptions.has(value)
+          ? `<em class="sample-description">${text}</em>`
+          : text;
+      }
+
     function renderSamples() {
+        let cleanCount = 0;
+        let attackCount = 0;
         document.getElementById("audioRows").innerHTML = samples.map((s, i) => `
         <tr>
           <td>
-            <small>Sample ${i + 1}</small>
+            <small class="${s.kind === "normal" ? "" : "danger"}">
+              ${s.kind === "normal"
+                ? `Clean Sample ${++cleanCount}`
+                : `Attack Sample ${++attackCount}`}
+            </small>
             <audio controls preload="none" src="${BASE + s.file}">
               Your browser does not support audio.
             </audio>
           </td>
           <td>${s.human
-                ? escapeHTML(s.human)
-                : '<span class="unsure">No verified listener transcript</span>'}</td>
+            ? formatSampleText(s.human)
+            : '<em class="sample-description">No verified listener transcript</em>'}</td>
+
           <td class="${s.kind === "normal" ? "" : "danger"}">
             ${escapeHTML(s.original)}
           </td>
+
           <td class="${s.kind === "normal" ? "safe" : ""}">
-            ${escapeHTML(s.v1)}
+            ${formatSampleText(s.v1)}
           </td>
+
           <td class="${s.kind === "normal" ? "safe" : ""}">
-            ${escapeHTML(s.v2)}
+            ${formatSampleText(s.v2)}
           </td>
         </tr>
       `).join("");
