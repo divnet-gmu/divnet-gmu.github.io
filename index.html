@@ -962,8 +962,8 @@
         file: "alif-cancel_my_alarm_clock.wav",
         human: "Noise",
         original: "\"Cancel my alarm clock\"",
-        v1: "No transcription",
-        v2: "No transcription"
+        v1: "No output",
+        v2: "No output"
       },
       {
         kind: "hvc",
@@ -971,7 +971,7 @@
         human: "Noise",
         original: "\"Turn on the light\"",
         v1: "\"Ter i\"",
-        v2: "No transcription"
+        v2: "No output"
       }
     ];
     
@@ -984,12 +984,12 @@
 
     const descriptions = new Set([
         "Noise",
-        "No transcription"
+        "No output"
     ]);
 
       function formatSampleText(value) {
         if (value === "") {
-          value = "No transcription";
+          value = "No output";
         }
 
         const text = escapeHTML(value);
