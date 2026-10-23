@@ -584,6 +584,37 @@
         <span class="kicker">George Mason University · ACM MobiSys 2026</span>
         <h1>One malicious recording shouldn't fool every voice assistant.</h1>
         <p>
+          Imagine streaming your favorite music on YouTube Music.
+          To you, it sounds like an ordinary song. But a nearby
+          smart-home assistant hears something very different:
+          <strong>"Open the front door."</strong>
+          An attacker has hidden a malicious command in the audio,
+          without making it obvious to human listeners.
+        </p>
+        <p>
+          By subtly manipulating audio, attackers can trick speech AI
+          into recognizing commands that people never intended.
+          And when millions of devices use the same AI model,
+          an attacker may be able to craft one malicious recording
+          and reuse it against countless devices.
+        </p>
+        <p>
+          <strong>DivNet breaks this "craft once, attack all" pattern.</strong>
+          It turns one speech AI into an enormous family of different,
+          independently protected variants.
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="#samples">Hear the Examples ↓</a>
+          <a class="btn outline" href="#solution">How DivNet Works →</a>
+        </div>
+        <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
+      </div>
+
+    <!-- <div class="container hero-grid">
+      <div>
+        <span class="kicker">George Mason University · ACM MobiSys 2026</span>
+        <h1>One malicious recording shouldn't fool every voice assistant.</h1>
+        <p>
           Imagine asking your voice assistant for the weather.
           You hear a harmless question. But the AI hears
           <strong>"Open the front door."</strong>
@@ -597,18 +628,30 @@
         <p>
           <strong>DivNet breaks this "craft once, attack all" pattern.</strong>
           It turns one speech AI into an enormous family of different,
-          independently protected versions.
+          independently protected variants.
         </p>
         <div class="buttons">
           <a class="btn primary" href="#samples">Hear the Examples ↓</a>
           <a class="btn outline" href="#solution">How DivNet Works →</a>
         </div>
         <p class="byline">Ying Meng and Qiang Zeng · George Mason University</p>
-      </div>
+      </div> -->
 
       <div class="demo">
         <div class="caption">One recording. Different interpretations.</div>
         <div class="heard">
+          <b>What a person hears</b>
+          <strong>Ordinary music playing</strong>
+        </div>
+        <div class="heard bad">
+          <b>What a vulnerable AI might hear</b>
+          <strong>"Open the front door."</strong>
+        </div>
+        <div class="heard good">
+          <b>What DivNet aims to do</b>
+          <strong>Stop the attack from working.</strong>
+        </div>
+        <!-- <div class="heard">
           <b>What a person hears</b>
           <strong>"Alexa, what's the weather?"</strong>
         </div>
@@ -619,7 +662,7 @@
         <div class="heard good">
           <b>What DivNet aims to do</b>
           <strong>Stop the hidden command from working.</strong>
-        </div>
+        </div> -->
         <small>
           Illustrative scenario. Our experiments evaluated research
           speech recognition models, not commercial Alexa devices.
@@ -748,7 +791,7 @@
           DivNet does not need to build or train an entirely new AI
           from scratch for every device. Instead, it makes carefully
           selected changes inside an existing speech recognition model.
-          The resulting versions continue to understand everyday speech
+          The resulting variants continue to understand everyday speech
           while responding differently to maliciously manipulated audio.
         </p>
         <div class="steps">
@@ -773,17 +816,17 @@
           </div>
           <div class="step">
             <span class="number">03 — DIVERSIFY</span>
-            <h3>Give devices different versions.</h3>
+            <h3>Give devices different variants.</h3>
             <p>
               Each installation can receive a different AI variant.
-              An attack prepared for one version is unlikely
+              An attack prepared for one variant is unlikely
               to work on another.
             </p>
           </div>
         </div>
         <div class="evidence">
           <strong>And the AI can keep changing.</strong>
-          Because new versions are cheap to create, a device could
+          Because new variants are cheap to create, a device could
           periodically switch between variants, making it harder
           for attackers to rely on a single successful recording.
           This is a potential deployment strategy, not a claim
@@ -848,8 +891,8 @@
             "Trillions" vastly understates the possibilities.
             Our mathematical analysis shows that even under strong
             requirements that variants differ substantially,
-            the number of possible well-separated versions
-            exceeds 10<sup>54,000</sup>.
+            the number of possible well-separated variants 
+            exceeds the number of observable  10<sup>54,000</sup>.
           </p>
           <p>
             This is a theoretical lower bound on the number
@@ -857,23 +900,6 @@
             we physically generated or deployed.
           </p>
         </div>
-        <!-- <div class="evidence">
-          <h3>What happens when an attacker plays the recording out loud?</h3>
-          <p>
-            We also tested attacks using speakers and microphones
-            in a laboratory and a bedroom. In one laboratory test
-            at a 10 cm distance, a KENKU attack succeeded in
-            <strong>30 out of 30</strong> playbacks against an
-            identical target model, but only
-            <strong>1 out of 300</strong> playbacks across
-            ten different DivNet variants.
-          </p>
-          <p>
-            This comparison is one specific experimental setting,
-            not a universal guarantee that all audio attacks fail.
-            See Table 6.
-          </p>
-        </div> -->
       </div>
     </section>
 
@@ -883,11 +909,11 @@
         <h2>Same recording. Different AI interpretations.</h2>
         <p class="lead">
           Listen to the audio, then compare what the original
-          speech AI recognized with what two DivNet versions recognized.
-          For normal speech, the versions generally agree.
+          speech AI recognized with what two DivNet variants recognized.
+          For normal speech, the variants generally agree.
           For manipulated audio, the original model may output
           the attacker's chosen phrase, while the diversified
-          versions avoid that result.
+          variants avoid that result.
         </p>
         <div class="tabs" id="tabs">
           <button class="tab active" data-kind="normal">Normal Speech</button>
